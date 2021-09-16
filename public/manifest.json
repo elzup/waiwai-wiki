@@ -1,0 +1,14 @@
+{
+  "short_name": "WaiWai",
+  "name": "WaiWaiWiki",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#3E3E3E",
+  "icons": [
+    {
+      "src": "/images/icon-4x.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}

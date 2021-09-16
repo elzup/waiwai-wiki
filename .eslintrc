@@ -1,0 +1,8 @@
+{
+  "extends": ["nzap", "nzap/tsx", "nzap/jest"],
+
+  "rules": {
+    "react/react-in-jsx-scope": 0,
+    "@typescript-eslint/no-var-requires": 0
+  }
+}
