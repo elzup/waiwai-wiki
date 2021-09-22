@@ -17,6 +17,7 @@
     "@material-ui/icons": "4.11.2",
     "@material-ui/styles": "4.11.4",
     "color": "3.2.1",
+    "firebase": "^9.0.2",
     "fitty": "2.3.5",
     "formik": "2.2.9",
     "muuri": "0.9.5",
