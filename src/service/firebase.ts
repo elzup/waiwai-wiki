@@ -1,18 +1,24 @@
-import { getAuth, setPersistence, signInWithPopup } from 'firebase/auth'
+import {
+  getAuth,
+  browserLocalPersistence,
+  setPersistence,
+  signInWithPopup,
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+} from 'firebase/auth'
 import {
   collection,
   doc,
   DocumentData,
   getDoc,
   getDocs,
-  QueryDocumentSnapshot,
-  SnapshotOptions,
   getFirestore,
   query,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
   Timestamp,
   where,
 } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
 import { ProviderType, User } from '../types'
 import './firebaseInit'
 
@@ -22,7 +28,6 @@ export const getFirebaseAuth = () => {
 
 const db = getFirestore()
 const auth = getAuth()
-const solveRef = () => collection(db, 'solve')
 
 const userConverter = {
   toFirestore(user: User): DocumentData {
@@ -41,21 +46,6 @@ const userConverter = {
 const userCollection = collection(db, 'user').withConverter(userConverter)
 
 export type Solve = Record<number, Timestamp>
-
-export const useSolve = (uid: string) => {
-  const [solve, setSolve] = useState<Solve>({})
-
-  useEffect(() => {
-    solveRef()
-      .doc(uid)
-      .get()
-      .then((snap) => {
-        if (!snap.exists) return
-        setSolve(snap.data() as Solve)
-      })
-  }, [uid])
-  return { solve } as const
-}
 
 export const usableUserId = async (userId: string) => {
   const q = query(collection(db, 'user'), where('id', '==', userId))
@@ -77,9 +67,9 @@ export const signin = (providerType: ProviderType) => {
   const provider = getProvider(providerType)
 
   if (typeof window !== undefined) {
-    setPersistence(Auth.Persistence.LOCAL)
+    setPersistence(auth, browserLocalPersistence)
   }
-  signInWithPopup(provider)
+  return signInWithPopup(auth, provider)
 }
 
 export const signout = auth.signOut
@@ -90,7 +80,7 @@ export const getUser = (uid: string) => getDoc(doc(userCollection, uid))
 export const getUserOptional = async (uid: string) => {
   const userSnap = await getUser(uid)
 
-  if (!userSnap.exists) return false
+  if (!userSnap.exists()) return false
 
-  const user = userSnap.data()
+  return userSnap.data() || false
 }
