@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "waiwaiwiki"
-  }
+    "default": "waiwaiwiki",
+    "dev": "waiwaiwiki-staging"
+  },
+  "targets": {}
 }

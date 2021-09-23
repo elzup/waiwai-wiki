@@ -1,9 +1,10 @@
 import {
-  getAuth,
   browserLocalPersistence,
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged as onAuthStateChangedFirebase,
   setPersistence,
   signInWithPopup as signInWithPopupFirebase,
-  GoogleAuthProvider,
   TwitterAuthProvider,
 } from 'firebase/auth'
 import {
@@ -73,8 +74,7 @@ export const signInWithPopup = (providerType: ProviderType) => {
 }
 
 export const signout = auth.signOut
-
-export const { onAuthStateChanged } = auth
+export const onAuthStateChanged = onAuthStateChangedFirebase.bind(null, auth)
 
 export const getUser = (uid: string) => getDoc(doc(userCollection, uid))
 export const getUserOptional = async (uid: string) => {
