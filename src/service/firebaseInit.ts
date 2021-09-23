@@ -1,24 +1,26 @@
 import { initializeApp } from 'firebase/app'
 import 'firebase/firestore'
+import { isDev } from '../utils/env'
 
-const {
-  FIREBASE_API_KEY: apiKey = '',
-  FIREBASE_AUTH_DOMAIN: authDomain = '',
-  FIREBASE_PROJECT_ID: projectId = '',
-  FIREBASE_STORAGE_BUCKET: storageBucket = '',
-  FIREBASE_MESSAGING_SENDER_ID: messagingSenderId = '',
-  FIREBASE_APP_ID: appId = '',
-  FIREBASE_MEASUREMENT_ID: measumentId = '',
-} = process.env
-
-const firebaseConfig = {
-  apiKey,
-  authDomain,
-  projectId,
-  storageBucket,
-  messagingSenderId,
-  appId,
-  measumentId,
+// public keys no problem
+const prodConfig = {
+  apiKey: 'AIzaSyAr6YlVPF1-dF3M4ukh0t4ESsofjhqKFI8',
+  authDomain: 'waiwaiwiki-staging.firebaseapp.com',
+  projectId: 'waiwaiwiki-staging',
+  storageBucket: 'waiwaiwiki-staging.appspot.com',
+  messagingSenderId: '781494990367',
+  appId: '1:781494990367:web:7aea28bb977b58d354472a',
 }
+const devConfg = {
+  apiKey: 'AIzaSyBqp0y1j6ogayjdXmiUdBJP83cDDC6JHpo',
+  authDomain: 'waiwaiwiki.firebaseapp.com',
+  projectId: 'waiwaiwiki',
+  storageBucket: 'waiwaiwiki.appspot.com',
+  messagingSenderId: '220365413281',
+  appId: '1:220365413281:web:95b7a454aa7ad36c6e09e0',
+  measurementId: 'G-7FKX5X49ZE',
+}
+
+const firebaseConfig = isDev ? devConfg : prodConfig
 
 initializeApp(firebaseConfig)

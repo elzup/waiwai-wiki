@@ -2,7 +2,7 @@ import {
   getAuth,
   browserLocalPersistence,
   setPersistence,
-  signInWithPopup,
+  signInWithPopup as signInWithPopupFirebase,
   GoogleAuthProvider,
   TwitterAuthProvider,
 } from 'firebase/auth'
@@ -63,13 +63,13 @@ export const getProvider = (providerType: ProviderType) => {
   }
 }
 
-export const signin = (providerType: ProviderType) => {
+export const signInWithPopup = (providerType: ProviderType) => {
   const provider = getProvider(providerType)
 
   if (typeof window !== undefined) {
     setPersistence(auth, browserLocalPersistence)
   }
-  return signInWithPopup(auth, provider)
+  return signInWithPopupFirebase(auth, provider)
 }
 
 export const signout = auth.signOut

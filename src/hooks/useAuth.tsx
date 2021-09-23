@@ -35,6 +35,7 @@ function useProvideAuth() {
       }
       const { uid } = fuser
       const user = await getUserOptional(uid)
+
       if (!user) {
         setLogin({ status: 'auth', uid })
         return
