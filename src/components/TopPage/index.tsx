@@ -1,7 +1,6 @@
-import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core'
-import GitHubIcon from '@material-ui/icons/GitHub'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import styled from 'styled-components'
-import { GITHUB_LINK } from '../../config'
+import LoginButton from '../LoginButton'
 
 const StyledAppBar = styled(AppBar)`
   @media (display-mode: standalone) {
@@ -17,11 +16,7 @@ const TopPage = () => {
           <Typography>WaiWai wiki</Typography>
           <div style={{ flexGrow: 1 }} />
           <div>
-            <IconButton color="inherit">
-              <a style={{ color: 'inherit' }} href={GITHUB_LINK}>
-                <GitHubIcon />
-              </a>
-            </IconButton>
+            <LoginButton />
           </div>
         </Toolbar>
       </StyledAppBar>

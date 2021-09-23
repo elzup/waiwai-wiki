@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core'
-import { signin } from '../service/firebase'
+import { signInWithPopup } from '../service/firebase'
 import { useAuth } from '../hooks/useAuth'
 
 function LoginButton() {
@@ -11,7 +11,7 @@ function LoginButton() {
         {/* <Button color="inherit" onClick={() => signin('google')}>
           Google
         </Button> */}
-        <Button color="inherit" onClick={() => signin('twitter')}>
+        <Button color="inherit" onClick={() => signInWithPopup('twitter')}>
           Twitterログイン
         </Button>
       </div>
