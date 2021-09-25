@@ -3,7 +3,6 @@ import { getUserOptional } from '../src/service/firebase'
 
 async function main() {
   const devices = await dbload.db.ref('device').once('value')
-  getUserOptional()
 }
 
 main().then(() => {

@@ -1,4 +1,4 @@
-export type Stage = {
+export type Map = {
   resourceId: string
 }
 

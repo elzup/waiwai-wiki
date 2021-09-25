@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2019",
     "noImplicitReturns": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
