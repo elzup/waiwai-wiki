@@ -28,5 +28,7 @@ service cloud.firestore {
     match /games/{gameID} {
       allow read: if true;
     }
+    match /deleted/d/{document=**} {
+    }
   }
 }
