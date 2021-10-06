@@ -1,6 +1,12 @@
 export type Map = {
   resourceId: string
 }
+export type Game = {
+  id: string
+  title: string
+  icon?: string
+}
+export type Strategy = {}
 
 export type User = {
   id: string

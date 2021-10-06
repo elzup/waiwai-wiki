@@ -12,6 +12,7 @@ import {
   doc,
   DocumentData,
   getDoc,
+  setDoc,
   getDocs,
   getFirestore,
   query,
@@ -44,12 +45,12 @@ const userConverter = {
   },
 }
 
-const userCollection = collection(db, 'user').withConverter(userConverter)
+const userCollection = collection(db, 'users').withConverter(userConverter)
 
 export type Solve = Record<number, Timestamp>
 
 export const usableUserId = async (userId: string) => {
-  const q = query(collection(db, 'user'), where('id', '==', userId))
+  const q = query(userCollection, where('id', '==', userId))
   const docs = await getDocs(q)
 
   return docs.size === 0
@@ -76,11 +77,30 @@ export const signInWithPopup = (providerType: ProviderType) => {
 export const signout = auth.signOut
 export const onAuthStateChanged = onAuthStateChangedFirebase.bind(null, auth)
 
-export const getUser = (uid: string) => getDoc(doc(userCollection, uid))
+export const getUserDoc = (uid: string) => doc(userCollection, uid)
+export const getUser = (uid: string) => getDoc(getUserDoc(uid))
+export const createUser = (uid: string, user: User) =>
+  setDoc(getUserDoc(uid), { id })
+
 export const getUserOptional = async (uid: string) => {
   const userSnap = await getUser(uid)
 
   if (!userSnap.exists()) return false
 
   return userSnap.data() || false
+}
+
+export const getUserOrCreate = async (
+  uid: string,
+  id: string
+): Promise<User> => {
+  const userOpt = await getUserOptional(uid)
+
+  if (userOpt) return userOpt
+
+  const user = { id }
+
+  await createUser(uid, user)
+
+  return user
 }

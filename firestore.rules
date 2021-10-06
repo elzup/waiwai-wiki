@@ -13,22 +13,33 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    match /user/{userID} {
-      allow read: if true:
+    match /users/{userID} {
+      allow read;
       allow write: if isUserAuthenticated(userId);
     }
-    match /user_private/{userID} {
-      allow read: if isUserAuthenticated(userId):
-      allow write: if isUserAuthenticated(userId);
-    }
-    match /strategy/{strategyID} {
-      allow read: if true;
+    match /user_privates/{userID} {
+      allow read: if isUserAuthenticated(userId);
       allow write: if isUserAuthenticated(userId);
     }
     match /games/{gameID} {
-      allow read: if true;
+      allow read;
+      // match /strategies/{strategyID} {
+      //   // allow write: if isUserAuthenticated(userId);
+      // }
+      // match /matrixes/{matrixID} {
+      // }
+      // match /resources/{resourceID} {
+      // }
     }
     match /deleted/d/{document=**} {
+      match /users/{userID} {
+        allow read;
+        allow write: if isUserAuthenticated(userId);
+      }
+      match /user_private/{userID} {
+        allow read: if isUserAuthenticated(userId);
+        allow write: if isUserAuthenticated(userId);
+      }
     }
   }
 }
