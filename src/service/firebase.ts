@@ -80,7 +80,7 @@ export const onAuthStateChanged = onAuthStateChangedFirebase.bind(null, auth)
 export const getUserDoc = (uid: string) => doc(userCollection, uid)
 export const getUser = (uid: string) => getDoc(getUserDoc(uid))
 export const createUser = (uid: string, user: User) =>
-  setDoc(getUserDoc(uid), { id })
+  setDoc(getUserDoc(uid), { id: user.id })
 
 export const getUserOptional = async (uid: string) => {
   const userSnap = await getUser(uid)

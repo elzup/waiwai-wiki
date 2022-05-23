@@ -29,11 +29,15 @@ function useProvideAuth() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(async (fuser) => {
+      console.log('onAuthStateChanged')
+      console.log(fuser)
       if (!fuser) {
         setLogin({ status: 'none' })
         return
       }
+      console.log(fuser.uid)
       const { uid } = fuser
+
       const user = await getUserOptional(uid)
 
       if (!user) {
@@ -50,6 +54,6 @@ function useProvideAuth() {
   return {
     login,
     setLogin,
-    signout: () => signout().then(() => setLogin({ status: 'none' })),
+    signout,
   }
 }

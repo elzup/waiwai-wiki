@@ -19,4 +19,8 @@ item {
 list {
   string title
 }
+
+user {
+  string id
+}
 ```
