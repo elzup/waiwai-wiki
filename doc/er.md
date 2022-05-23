@@ -2,8 +2,16 @@
 erDiagram
 
 work ||--o{ item: ""
-work ||--o{ list: ""
-item }o--o{ list: ""
+item }|--o{ topic: ""
+work ||--o{ topic: ""
+
+work ||--o{ achive: ""
+
+user }o--o{ work: "follow"
+user ||--o{ table: ""
+user }o--o{ achive: "get"
+
+table }o--|| topic: "XY"
 
 work {
   string name
@@ -11,16 +19,28 @@ work {
   integer age
 }
 
+topic {
+  string title
+}
+
 item {
   string title
   text text
 }
 
-list {
-  string title
-}
-
 user {
   string id
+}
+
+table {
+  string id
+}
+
+table {
+  id string
+}
+
+achive {
+  id string
 }
 ```

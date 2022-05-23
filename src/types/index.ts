@@ -8,10 +8,6 @@ export type Game = {
 }
 export type Strategy = {}
 
-export type User = {
-  id: string
-}
-
 export type LoginInfo =
   | {
       status: 'loading'
@@ -34,3 +30,30 @@ const PROVIDER_TYPE_TWITTER = 'twitter'
 const PROVIDER_TYPES = [PROVIDER_TYPE_GOOGLE, PROVIDER_TYPE_TWITTER] as const
 
 export type ProviderType = typeof PROVIDER_TYPES[number]
+
+type ID = string
+export type Item = {
+  id: ID
+  name: string
+  url: string
+}
+
+export type User = {
+  id: string
+}
+
+export type Maching = {}
+
+export type Table = {
+  id: ID
+  mirror: boolean
+  templateR: ID
+  templateV: ID
+  cells: Cell[][]
+}
+
+export type Cell = {
+  category: 'emp' | 'val' | 'non' | 'ox'
+  val: number
+  str: string
+}
