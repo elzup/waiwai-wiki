@@ -57,3 +57,7 @@ export type Cell = {
   val: number
   str: string
 }
+
+export type Timeline = {
+  gameId: ID
+}
