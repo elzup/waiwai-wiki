@@ -1,7 +1,15 @@
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import Head from 'next/head'
 import * as React from 'react'
 import styled from 'styled-components'
 import { GITHUB_LINK, TWITTER_LINK } from '../config'
+import LoginButton from './LoginButton'
+
+const StyledAppBar = styled(AppBar)`
+  @media (display-mode: standalone) {
+    display: none;
+  }
+`
 
 type Props = { title: string }
 
@@ -16,16 +24,22 @@ const GadgetLayout: React.FunctionComponent<Props> = ({ children, title }) => (
   </div>
 )
 
-export const TopLayout: React.FunctionComponent<Props> = ({
-  children,
-  title,
-}) => (
+export const Layout: React.FunctionComponent<Props> = ({ children, title }) => (
   <div>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
+    <StyledAppBar position="static">
+      <Toolbar variant="dense">
+        <Typography>Waiwai wiki</Typography>
+        <div style={{ flexGrow: 1 }} />
+        <div>
+          <LoginButton />
+        </div>
+      </Toolbar>
+    </StyledAppBar>
     <Main>{children}</Main>
     <Footer>
       <div className="links">
