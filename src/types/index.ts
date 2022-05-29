@@ -31,9 +31,9 @@ const PROVIDER_TYPES = [PROVIDER_TYPE_GOOGLE, PROVIDER_TYPE_TWITTER] as const
 
 export type ProviderType = typeof PROVIDER_TYPES[number]
 
-type ID = string
+type Id = string
 export type Item = {
-  id: ID
+  id: Id
   name: string
   url: string
 }
@@ -45,10 +45,10 @@ export type User = {
 export type Maching = {}
 
 export type Table = {
-  id: ID
+  id: Id
   mirror: boolean
-  templateR: ID
-  templateV: ID
+  templateR: Id
+  templateV: Id
   cells: Cell[][]
 }
 
@@ -58,6 +58,32 @@ export type Cell = {
   str: string
 }
 
+export type TimePoint = {
+  id: Id
+  time: TimeKey
+  category: 'point'
+}
+
+export type TimeKey = string // 2000-01-00
+export type TimeRange = {
+  id: Id
+  start: TimeKey
+  end: TimeKey
+}
+export type Time = TimePoint | TimeRange
+
 export type Timeline = {
-  gameId: ID
+  id: Id
+  userId: Id
+  title: string
+  times: Time[]
+  attrs: Id[]
+}
+
+// Timeline instance
+
+export type Attr = {
+  id: Id
+  naem: Id
+  gameId: Id
 }
