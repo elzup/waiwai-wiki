@@ -71,22 +71,23 @@ export type Cell = {
 
 export type TimeKey = string // 2000-01-00
 
-export type TimePoint = {
+export type TimeBase = {
   id: Id
-  category: 'point'
   itemId: string | null
   time: TimeKey
 }
 
-export type TimeRange = {
-  id: Id
+export type TimePoint = {
+  category: 'point'
+}
+
+export type TimeRange = TimeBase & {
   category: 'range'
-  itemId: string | null
-  start: TimeKey
-  end: TimeKey
+  end?: TimeKey
 }
 
 export type Time = TimePoint | TimeRange
+export type TimeRaw = Omit<Time, 'id'>
 
 export type Timeline = {
   id: Id
