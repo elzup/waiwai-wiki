@@ -16,17 +16,17 @@ function calcRate(
   lRate?: number,
   pRate?: number
 ) {
-  const maxWidth = pRate ? height * pRate : width
-  const maxHeight = lRate ? width / lRate : height
+  const maxWidth = pRate !== undefined ? height * pRate : width
+  const maxHeight = lRate !== undefined ? width / lRate : height
 
   return [Math.min(width, maxWidth), Math.min(height, maxHeight)]
 }
 
-const SizeDef: React.FC<{ landRate?: number; portRate?: number }> = ({
+const SizeDef = ({
   children,
   landRate,
   portRate,
-}) => {
+}: React.PropsWithChildren<{ landRate?: number; portRate?: number }>) => {
   const [ref, { width, height }] = useMeasure<HTMLDivElement>()
   const [w, h] = calcRate(width, height, landRate, portRate)
 
