@@ -27,6 +27,8 @@ export const useAuth = () => {
 function useProvideAuth() {
   const [login, setLogin] = useState<LoginInfo>({ status: 'loading' })
 
+  console.log({ login })
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(async (fuser) => {
       console.log('onAuthStateChanged')
@@ -40,7 +42,7 @@ function useProvideAuth() {
 
       const user = await getUserOptional(uid)
 
-      if (!user) {
+      if (user === false) {
         setLogin({ status: 'auth', uid })
         return
       }
@@ -50,6 +52,7 @@ function useProvideAuth() {
 
     return () => unsubscribe()
   }, [])
+  console.log({ login })
 
   return {
     login,

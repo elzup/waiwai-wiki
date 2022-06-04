@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography } from '@mui/material'
 import Head from 'next/head'
-import * as React from 'react'
+import React, { PropsWithChildren } from 'react'
 import styled from 'styled-components'
 import { GITHUB_LINK, TWITTER_LINK } from '../config'
 import LoginButton from './LoginButton'
@@ -13,18 +13,7 @@ const StyledAppBar = styled(AppBar)`
 
 type Props = { title: string }
 
-const GadgetLayout: React.FunctionComponent<Props> = ({ children, title }) => (
-  <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
-    <div style={{ height: '100vh' }}>{children}</div>
-  </div>
-)
-
-export const Layout: React.FunctionComponent<Props> = ({ children, title }) => (
+export const Layout = ({ children, title }: PropsWithChildren<Props>) => (
   <div>
     <Head>
       <title>{title}</title>
@@ -69,5 +58,3 @@ const Footer = styled.footer`
     gap: 1rem;
   }
 `
-
-export default GadgetLayout

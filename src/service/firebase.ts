@@ -68,7 +68,7 @@ export const getProvider = (providerType: ProviderType) => {
 export const signInWithPopup = (providerType: ProviderType) => {
   const provider = getProvider(providerType)
 
-  if (typeof window !== undefined) {
+  if (typeof window !== 'undefined') {
     setPersistence(auth, browserLocalPersistence)
   }
   return signInWithPopupFirebase(auth, provider)
@@ -87,7 +87,7 @@ export const getUserOptional = async (uid: string) => {
 
   if (!userSnap.exists()) return false
 
-  return userSnap.data() || false
+  return userSnap.data() ?? false
 }
 
 export const getUserOrCreate = async (
@@ -96,7 +96,7 @@ export const getUserOrCreate = async (
 ): Promise<User> => {
   const userOpt = await getUserOptional(uid)
 
-  if (userOpt) return userOpt
+  if (userOpt !== false) return userOpt
 
   const user = { id }
 
