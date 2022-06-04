@@ -1,4 +1,4 @@
-import { ThemeProvider, CssBaseline } from '@material-ui/core'
+import { ThemeProvider, CssBaseline } from '@mui/material'
 import { theme, GlobalStyle } from '../src/utils/theme'
 
 export const parameters = {

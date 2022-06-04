@@ -1,5 +1,5 @@
-import { createMuiTheme } from '@material-ui/core'
-import { orange } from '@material-ui/core/colors'
+import { createMuiTheme } from '@mui/material'
+import { orange } from '@mui/material/colors'
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`

@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material'
 import { signInWithPopup } from '../service/firebase'
 import { useAuth } from '../hooks/useAuth'
 

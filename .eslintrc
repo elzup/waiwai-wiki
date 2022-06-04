@@ -1,6 +1,9 @@
 {
   "extends": ["nzap", "nzap/tsx", "nzap/jest"],
-
+  "env": {
+    "jest": true,
+    "browser": true
+  },
   "rules": {
     "react/react-in-jsx-scope": 0,
     "@typescript-eslint/no-var-requires": 0
