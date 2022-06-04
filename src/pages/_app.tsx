@@ -1,10 +1,18 @@
+import { ThemeProvider, CacheProvider, EmotionCache } from '@emotion/react'
+import { CssBaseline } from '@material-ui/core'
 import { AppProps } from 'next/app'
-import { ThemeProvider, CssBaseline } from '@material-ui/core'
 import Head from 'next/head'
-import { theme, GlobalStyle } from '../utils/theme'
+import createEmotionCache from '../utils/createEmotionCache'
+import { GlobalStyle, theme } from '../utils/theme'
 
-const App = ({ Component, pageProps }: AppProps) => (
-  <>
+const clientSideEmotionCache = createEmotionCache()
+
+const App = ({
+  Component,
+  pageProps,
+  emotionCache = clientSideEmotionCache,
+}: AppProps & { emotionCache?: EmotionCache }) => (
+  <CacheProvider value={emotionCache}>
     <Head>
       <meta
         name="viewport"
@@ -30,7 +38,7 @@ const App = ({ Component, pageProps }: AppProps) => (
       <GlobalStyle />
       <Component {...pageProps} />
     </ThemeProvider>
-  </>
+  </CacheProvider>
 )
 
 export default App
