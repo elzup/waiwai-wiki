@@ -35,15 +35,15 @@ export type Strategy = {}
 
 export type Attr = {
   id: Id
-  naem: Id
   gameId: Id
+  name: string
 }
 
 export type Item = {
   id: Id
   attrId: Id
   name: string
-  url: string
+  icon?: string
 }
 
 export type User = {
@@ -72,8 +72,8 @@ export type Cell = {
 export type TimeKey = string // 2000-01-00
 
 export type TimeBase = {
-  id: Id
-  itemId: string | null
+  itemId: Id | null
+  label: string | null
   time: TimeKey
 }
 
