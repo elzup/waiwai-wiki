@@ -1,42 +1,57 @@
-import { Attr, Game, Item, Time, Timeline } from '../types'
+import { Attr, Game, Item, Timeline } from '../types'
+import { wepons, subs, cates, baseWepons, sps } from './wepons'
 
 export const game: Game = {
   id: 'splatoon2',
   title: 'Splatoon 2',
   icon: '',
 }
+const gameId = game.id
 
-const attrWepon: Attr = {
-  id: 'wepon',
-  name: 'ブキ',
-  gameId: game.id,
-}
+export const attrCate: Attr = { id: 'category', name: 'ブキカテゴリ', gameId }
+export const attrWepon: Attr = { id: 'wepon', name: 'ブキ', gameId }
+export const attrSubWepon: Attr = { id: 'sub', name: 'サブウェポン', gameId }
+export const attrSp: Attr = { id: 'sp', name: 'スペシャル', gameId }
+export const attrStage = { id: 'stage', name: 'ステージ', gameId }
+
+export const itesmsCate: Item[] = cates.map((name) => ({
+  id: name,
+  attrId: attrCate.id,
+  name,
+}))
+
+export const itesmsSub: Item[] = subs.map((name) => ({
+  id: name,
+  attrId: attrSubWepon.id,
+  name,
+}))
+
+export const itesmsSp: Item[] = sps.map((name) => ({
+  id: name,
+  attrId: attrSp.id,
+  name,
+}))
+
+export const itemsWepon: Item[] = wepons.map((wepon) => {
+  return {
+    id: wepon.name,
+    name: wepon.name,
+    attrId: attrWepon.id,
+    fields: {
+      [attrSubWepon.id]: wepon.sub,
+      [attrSp.id]: wepon.sp,
+      [attrCate.id]: wepon.cate2,
+      [attrWepon.id]: wepon.cate3,
+    },
+  }
+})
 
 export const attrs: Attr[] = [
+  attrCate,
   attrWepon,
-  {
-    id: 'stage',
-    name: 'ステージ',
-    gameId: game.id,
-  },
-]
-
-export const items: Item[] = [
-  {
-    id: 'i01',
-    attrId: attrWepon.id,
-    name: 'スプラシューター',
-  },
-  {
-    id: 'i02',
-    attrId: attrWepon.id,
-    name: 'H3リールガン',
-  },
-  {
-    id: 'i02',
-    attrId: attrWepon.id,
-    name: 'H3リールガン',
-  },
+  attrSubWepon,
+  attrSp,
+  attrStage,
 ]
 
 export const timeline: Timeline = {

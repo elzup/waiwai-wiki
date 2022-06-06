@@ -43,6 +43,8 @@ export type Item = {
   id: Id
   attrId: Id
   name: string
+  notes?: { [name: string]: string }
+  fields?: { [attrId: Id]: Id }
   icon?: string
 }
 
