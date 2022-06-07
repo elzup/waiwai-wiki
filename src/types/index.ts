@@ -79,7 +79,7 @@ export type TimeBase = {
   time: TimeKey
 }
 
-export type TimePoint = {
+export type TimePoint = TimeBase & {
   category: 'point'
 }
 
