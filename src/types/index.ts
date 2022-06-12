@@ -91,7 +91,7 @@ export type TimeRange = TimeBase & {
 export type Time = TimePoint | TimeRange
 export type TimeRaw = Omit<Time, 'id'>
 
-export type Timeline = {
+export type Koyomi = {
   id: Id
   userId: Id
   title: string

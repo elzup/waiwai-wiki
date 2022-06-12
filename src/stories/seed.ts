@@ -1,4 +1,4 @@
-import { Attr, Game, Item, Timeline } from '../types'
+import { Attr, Game, Item, Koyomi } from '../types'
 import { wepons, subs, cates, sps } from './wepons'
 
 export const game: Game = {
@@ -56,7 +56,7 @@ export const attrs: Attr[] = [
 
 const ep = { category: 'point', itemId: null } as const
 
-export const timelineWepon: Timeline = {
+export const koyomiWepon: Koyomi = {
   id: 'tl-anozon-0001',
   userId: 'anozon',
   title: 'Splatoon2 使用ブキ',
@@ -130,7 +130,7 @@ export const timelineWepon: Timeline = {
   attrs: [],
 }
 
-export const timelineAchive: Timeline = {
+export const koyomiAchive: Koyomi = {
   id: 'tl-anozon-0002',
   userId: 'anozon',
   title: 'Splatoon2 実績',

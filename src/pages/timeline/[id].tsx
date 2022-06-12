@@ -9,7 +9,7 @@ const TopPage = dynamic(() => import('../../components/TopPage'), {
 
 const IndexPage: NextPage = () => {
   return (
-    <Layout title="Timeline - WaiWai Wiki">
+    <Layout title="Koyomi - WaiWai Wiki">
       <ProvideAuth>
         <TopPage />
       </ProvideAuth>

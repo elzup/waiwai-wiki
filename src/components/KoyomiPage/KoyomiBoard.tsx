@@ -1,15 +1,15 @@
 import { schedulingBy } from '@elzup/kit'
 import { Typography } from '@mui/material'
 import React, { useMemo } from 'react'
-import { Timeline } from '../../types'
+import { Koyomi } from '../../types'
 import { endTimeNum, mapId, timeNum } from '../../utils'
 import { getRangeKoyomi } from '../../utils/koyomi'
 
 type Props = {
-  koyomis: Timeline[]
+  koyomis: Koyomi[]
 }
 
-function TimelineBoard({ koyomis }: Props) {
+function KoyomiBoard({ koyomis }: Props) {
   const koyomiBlocks = useMemo(() => {
     const blocks = koyomis.map((koyomi) => ({
       koyomi,
@@ -45,4 +45,4 @@ function TimelineBoard({ koyomis }: Props) {
   )
 }
 
-export default TimelineBoard
+export default KoyomiBoard

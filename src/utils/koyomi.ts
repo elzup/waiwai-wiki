@@ -1,4 +1,4 @@
-import { Time, Timeline } from '../types'
+import { Time, Koyomi } from '../types'
 import { TIME_PROGRESS, timeNum } from '.'
 
 export const calcLayoutTimes = (
@@ -7,13 +7,13 @@ export const calcLayoutTimes = (
   koyomiMax: number
 ) => {}
 
-export const calcLayoutKoyomi = (koyomis: Timeline[]) => {
+export const calcLayoutKoyomi = (koyomis: Koyomi[]) => {
   const { koyomiMin, koyomiMax } = getRangeKoyomi(koyomis)
 
   koyomis.map((v) => ({}))
 }
 
-export const getRangeKoyomi = (koyomis: Timeline[]) => {
+export const getRangeKoyomi = (koyomis: Koyomi[]) => {
   const times = koyomis.map((v) => v.times).flat()
 
   const { min: koyomiMin, max: koyomiMax } = times.reduce(

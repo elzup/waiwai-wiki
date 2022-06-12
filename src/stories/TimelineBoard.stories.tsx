@@ -1,17 +1,17 @@
 import { Meta, Story } from '@storybook/react'
 import { ComponentProps } from 'react'
-import TimelineBoard from '../components/TimelinePage/TimelineBoard'
-import { timelineAchive, timelineWepon } from './seed'
+import KoyomiBoard from '../components/KoyomiPage/KoyomiBoard'
+import { koyomiAchive, koyomiWepon } from './seed'
 
-type Props = ComponentProps<typeof TimelineBoard>
+type Props = ComponentProps<typeof KoyomiBoard>
 export default {
-  title: 'TimelineBoard',
-  component: TimelineBoard,
+  title: 'KoyomiBoard',
+  component: KoyomiBoard,
   args: {},
   parameters: {},
   // decorators: decorators(),
 } as Meta<Props>
 
 export const Base: Story<Props> = (_args) => (
-  <TimelineBoard koyomis={[timelineWepon, timelineAchive]} />
+  <KoyomiBoard koyomis={[koyomiWepon, koyomiAchive]} />
 )
