@@ -1,24 +1,28 @@
 import { schedulingBy } from '@elzup/kit'
 import { List, ListItem, Typography } from '@mui/material'
-import React from 'react'
-import { Timeline } from '../../types'
+import React, { useMemo } from 'react'
+import { Time, Timeline } from '../../types'
+
+const timeNum = (s: string) => Number(s.replace(/-/g, ''))
+const endTimeNum = (v: Time) =>
+  timeNum(v.category === 'range' ? v.end ?? '9999-99-99' : v.time)
+
+const addId = <T,>(v: T, id: number) => ({ ...v, id: String(id) })
+const mapId = <T,>(a: T[]) => a.map(addId)
 
 type Props = {
   timeline: Timeline
 }
 function TimelineBoard({ timeline }: Props) {
-  const lines = schedulingBy(
-    timeline.times.map((v, id) => ({ ...v, id })),
-    (v) => ({
-      id: String(v.id),
-      start: Number(v.time.replace('-', '')),
-      end: Number(
-        (v.category === 'range' ? v.end ?? '9999-99-99' : v.time).replace(
-          '-',
-          ''
-        )
-      ),
-    })
+  const lines = useMemo(
+    () =>
+      schedulingBy(mapId(timeline.times), ({ id, ...v }) => ({
+        id,
+        start: timeNum(v.time),
+        end: endTimeNum(v),
+      })),
+
+    [timeline]
   )
 
   return (
