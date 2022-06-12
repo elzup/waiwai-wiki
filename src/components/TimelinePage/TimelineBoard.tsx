@@ -1,14 +1,8 @@
 import { schedulingBy } from '@elzup/kit'
 import { List, ListItem, Typography } from '@mui/material'
 import React, { useMemo } from 'react'
-import { Time, Timeline } from '../../types'
-
-const timeNum = (s: string) => Number(s.replace(/-/g, ''))
-const endTimeNum = (v: Time) =>
-  timeNum(v.category === 'range' ? v.end ?? '9999-99-99' : v.time)
-
-const addId = <T,>(v: T, id: number) => ({ ...v, id: String(id) })
-const mapId = <T,>(a: T[]) => a.map(addId)
+import { Timeline } from '../../types'
+import { endTimeNum, mapId, timeNum } from '../../utils'
 
 type Props = {
   timeline: Timeline

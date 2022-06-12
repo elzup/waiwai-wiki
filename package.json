@@ -13,7 +13,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@elzup/kit": "^3.2.0",
+    "@elzup/kit": "^3.2.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.8.2",
