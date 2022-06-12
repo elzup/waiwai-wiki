@@ -56,7 +56,7 @@ export const attrs: Attr[] = [
 
 const ep = { category: 'point', itemId: null } as const
 
-export const timeline: Timeline = {
+export const timelineWepon: Timeline = {
   id: 'tl-anozon-0001',
   userId: 'anozon',
   title: 'Splatoon2 使用ブキ',
