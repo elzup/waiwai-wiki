@@ -1,14 +1,10 @@
-import { Time, Koyomi } from '../types'
+import { Time, Koyomi, TimePos } from '../types'
 import { TIME_PROGRESS, timeNum } from '.'
 
-export const calcLayoutTimes = (
-  times: Time[],
-  koyomiMin: number,
-  koyomiMax: number
-) => {}
+export const calcLayoutTimes = (times: Time[], bgn: number, end: number) => {}
 
 export const calcLayoutKoyomi = (koyomis: Koyomi[]) => {
-  const { koyomiMin, koyomiMax } = getRangeKoyomi(koyomis)
+  const { bgn, end } = getRangeKoyomi(koyomis)
 
   koyomis.map((v) => ({}))
 }
@@ -16,16 +12,24 @@ export const calcLayoutKoyomi = (koyomis: Koyomi[]) => {
 export const getRangeKoyomi = (koyomis: Koyomi[]) => {
   const times = koyomis.map((v) => v.times).flat()
 
-  const { min: koyomiMin, max: koyomiMax } = times.reduce(
-    ({ min, max }, c) => {
-      if (c.category === 'point') return { max, min }
+  return times.reduce(
+    ({ bgn, end }, c) => {
+      if (c.category === 'point') return { bgn, end }
       return {
-        max: Math.max(timeNum(c.end ?? TIME_PROGRESS), max),
-        min: Math.min(min, timeNum(c.time)),
+        bgn: Math.min(bgn, timeNum(c.time)),
+        end: Math.max(timeNum(c.end ?? TIME_PROGRESS), end),
       }
     },
-    { max: 0, min: Infinity }
+    { bgn: 0 as TimePos, end: Infinity }
   )
+}
 
-  return { koyomiMin, koyomiMax }
+export const parseTimePos = (time: TimePos) => ({
+  y: Math.floor(time / 100),
+  m: time % 100,
+})
+
+export const makeMeasure = (bgn: number, end: number) => {
+  const { y: by, m: bm } = parseTimePos(bgn)
+  const { y: ey, m: em } = parseTimePos(end)
 }

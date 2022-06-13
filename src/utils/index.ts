@@ -24,3 +24,6 @@ export const endTimeNum = (v: Time) =>
 const addId = <T>(v: T, id: number) => ({ ...v, id: String(id) })
 
 export const mapId = <T>(a: T[]) => a.map(addId)
+
+export const smax = (a: string, b: string) => (a > b ? a : b)
+export const smin = (a: string, b: string) => (a > b ? b : a)

@@ -71,6 +71,7 @@ export type Cell = {
   str: string
 }
 
+export type TimePos = number
 export type TimeKey = string // 2000-01-00
 
 export type TimeBase = {
