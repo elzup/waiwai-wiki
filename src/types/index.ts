@@ -99,3 +99,5 @@ export type Koyomi = {
   times: Time[]
   attrs: Id[]
 }
+
+export type YmPos = { y: number; m: number }
