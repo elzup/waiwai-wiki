@@ -1,6 +1,12 @@
-import { rangeAdv } from '@elzup/kit'
-import { Koyomi, TimePos, YmPos } from '../types'
-import { timeNum, TIME_PROGRESS } from '.'
+import { formatYmd, rangeAdv } from '@elzup/kit'
+import { Koyomi, Time, TimePos, YmPos } from '../types'
+
+export const timeNum = (s: string) => Number(s.replace(/-/g, ''))
+export const TIME_PROGRESS = '9999-99'
+export const TIME_NOW = formatYmd(new Date()).substring(0, 7)
+
+export const endTimeNum = (v: Time) =>
+  timeNum(v.category === 'range' ? v.end ?? TIME_PROGRESS : v.time)
 
 export const nToYm = (n: number): YmPos => ({
   y: Math.floor(n / 12),
@@ -17,10 +23,10 @@ export const getRangeKoyomi = (koyomis: Koyomi[]) => {
       if (c.category === 'point') return { bgn, end }
       return {
         bgn: Math.min(bgn, timeNum(c.time)),
-        end: Math.max(timeNum(c.end ?? TIME_PROGRESS), end),
+        end: Math.max(timeNum(c.end ?? TIME_NOW), end),
       }
     },
-    { bgn: 0 as TimePos, end: Infinity }
+    { bgn: timeNum(TIME_NOW), end: 0 }
   )
 }
 
@@ -28,10 +34,15 @@ export const parseTimePos = (time: TimePos): YmPos => ({
   y: Math.floor(time / 100),
   m: time % 100,
 })
+export const toTimePos = ({ y, m }: YmPos): TimePos => y * 100 + m
 
 export const makeMeasure = (bgn: number, end: number) => {
   const bYm = parseTimePos(bgn)
   const eYm = parseTimePos(end)
 
-  return rangeAdv(ymToN(bYm) - 3, ymToN(eYm) + 3).map((n) => nToYm(n))
+  return rangeAdv(ymToN(bYm) - 3, ymToN(eYm) + 3).map((n) => {
+    const ym = nToYm(n)
+
+    return { n, ym, id: toTimePos(ym) }
+  })
 }
