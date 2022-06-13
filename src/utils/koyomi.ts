@@ -1,5 +1,5 @@
 import { formatYmd, rangeAdv } from '@elzup/kit'
-import { Koyomi, Time, TimePos, YmPos } from '../types'
+import { Koyomi, Time, TimeGrid, TimePos, YmPos } from '../types'
 
 export const timeNum = (s: string) => Number(s.replace(/-/g, ''))
 export const TIME_PROGRESS = '9999-99'
@@ -36,7 +36,7 @@ export const parseTimePos = (time: TimePos): YmPos => ({
 })
 export const toTimePos = ({ y, m }: YmPos): TimePos => y * 100 + m
 
-export const makeMeasure = (bgn: number, end: number) => {
+export const makeMeasure = (bgn: number, end: number): TimeGrid[] => {
   const bYm = parseTimePos(bgn)
   const eYm = parseTimePos(end)
 

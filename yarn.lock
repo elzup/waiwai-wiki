@@ -11427,6 +11427,13 @@ react-fast-compare@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
+react-hooks-svgdrawing@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-hooks-svgdrawing/-/react-hooks-svgdrawing-2.1.2.tgz#51c9ba2d6104be2571afc585de8d154baea578d7"
+  integrity sha512-NgtQM41WO0qZ5+vVqzlhISgb9yF603rU8vNvdfXuuWIbLcWMVLyp5CKvVHH6GzFRh0B1v9sXS5nQQOSc2x6QkA==
+  dependencies:
+    svg-drawing "2.1.1"
+
 react-inspector@^5.1.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-inspector/-/react-inspector-5.1.1.tgz#58476c78fde05d5055646ed8ec02030af42953c8"
@@ -12818,6 +12825,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+svg-drawing@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/svg-drawing/-/svg-drawing-2.1.1.tgz#26c5daa5f8fa644cb9de4ed19e9a18101046b2f0"
+  integrity sha512-OUNTDplkg2YcP1ktTE4sVQaRN8pGUzULj/x7ZEuvap/HQC9Fr9kq1DAk01ACeW/TS56MV5ZJraJI45zO1Wnwwg==
 
 symbol.prototype.description@^1.0.0:
   version "1.0.5"

@@ -2,7 +2,7 @@ import { keyBy, schedulingBy } from '@elzup/kit'
 import { Typography } from '@mui/material'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { Koyomi } from '../../types'
+import { BlockLine, Koyomi } from '../../types'
 import { mapId } from '../../utils'
 import {
   endTimeNum,
@@ -10,6 +10,8 @@ import {
   makeMeasure,
   timeNum,
 } from '../../utils/koyomi'
+import { useCanvas } from '../hooks/useCanvas'
+import { useKoyomiDraw } from './useKoyomiDraw'
 
 type Props = {
   koyomis: Koyomi[]
@@ -17,7 +19,7 @@ type Props = {
 
 function KoyomiBoard({ koyomis }: Props) {
   const { blocks, measures } = useMemo(() => {
-    const blocks = koyomis.map((koyomi) => ({
+    const blocks: BlockLine[] = koyomis.map((koyomi) => ({
       koyomi,
       lines: schedulingBy(mapId(koyomi.times), ({ id, ...v }) => ({
         id,
@@ -29,9 +31,11 @@ function KoyomiBoard({ koyomis }: Props) {
 
     return { blocks, measures: makeMeasure(range.bgn, range.end) }
   }, [koyomis])
+  const png = useKoyomiDraw(blocks, measures)
 
   return (
     <Style>
+      {png !== null && <img src={png} />}
       {blocks.map(({ koyomi, lines }) => (
         <div key={koyomi.id}>
           <Typography>{koyomi.title}</Typography>

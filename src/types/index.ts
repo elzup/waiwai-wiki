@@ -101,3 +101,6 @@ export type Koyomi = {
 }
 
 export type YmPos = { y: number; m: number }
+export type TimeGrid = { n: number; ym: YmPos; id: TimePos }
+export type Line = Record<string, Time & { id: string }>
+export type BlockLine = { koyomi: Koyomi; lines: Line[] }
