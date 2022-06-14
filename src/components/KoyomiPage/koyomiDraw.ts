@@ -1,16 +1,14 @@
 import { range } from '@elzup/kit'
 import { BlockLine, TimeGrid } from '../../types'
 
-const CELL_H = 42
-const CELL_W = 21
+const CELL_H = 100
+const CELL_W = 50
 
 const theme = {
   bg: '#fff',
   grid1: '#808080',
   grid2: '#c0c0c0',
 }
-
-type Context = CanvasRenderingContext2D
 
 export const draw = (
   el: HTMLCanvasElement,
@@ -45,9 +43,30 @@ export const draw = (
     ctx.stroke()
   }
 
+  const write = (text: string, x: number, y: number) => {
+    const tw = ctx.measureText(text).width
+
+    ctx.fillText(text, x - tw / 2, y)
+  }
+
   init()
 
+  const fs = CELL_W * 0.5
+
   measures.forEach((m, i) => {
-    gridLine(i * CELL_W, m.ym.m === 12)
+    const annu = m.ym.m === 12
+    const x = i * CELL_W
+
+    if (annu) {
+      ctx.font = `${fs}px serif`
+      ctx.fillStyle = '#000'
+      write(m.ym.y.toString(), x, hh * 0.8)
+    }
+    // } else if (m.ym.m % 3 === 0) {
+    ctx.font = `${fs * 0.8}px serif`
+    ctx.fillStyle = '#888'
+    write(m.ym.m.toString(), x - CELL_W / 2, hh)
+
+    gridLine(x, annu)
   })
 }
