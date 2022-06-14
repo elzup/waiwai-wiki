@@ -1,8 +1,8 @@
 import { BlockLine, TimeGrid } from '../../types'
 import { useCanvas } from '../hooks/useCanvas'
 
-const CELL_H = 100
-const CELL_W = 140
+const CELL_H = 42
+const CELL_W = 42
 
 export const useKoyomiDraw = (blocks: BlockLine[], measures: TimeGrid[]) => {
   return useCanvas((el) => {

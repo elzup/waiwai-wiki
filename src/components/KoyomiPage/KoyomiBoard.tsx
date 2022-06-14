@@ -10,7 +10,6 @@ import {
   makeMeasure,
   timeNum,
 } from '../../utils/koyomi'
-import { useCanvas } from '../hooks/useCanvas'
 import { useKoyomiDraw } from './useKoyomiDraw'
 
 type Props = {
