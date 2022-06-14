@@ -29,6 +29,13 @@ const App = ({
         rel="stylesheet"
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      {/* @ts-ignore */}
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap"
+        rel="stylesheet"
+      />
 
       <link rel="manifest" href="/manifest.json" />
       <link href="https://unpkg.com/sanitize.css/forms.css" rel="stylesheet" />
