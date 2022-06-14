@@ -9,10 +9,10 @@ export const endTimeNum = (v: Time) =>
   timeNum(v.category === 'range' ? v.end ?? TIME_PROGRESS : v.time)
 
 export const nToYm = (n: number): YmPos => ({
-  y: Math.floor(n / 12),
-  m: n % 12,
+  y: Math.floor((n - 1) / 12),
+  m: ((n - 1) % 12) + 1,
 })
-export const ymToN = ({ y, m }: YmPos): number => y * 12 + m
+export const ymToN = ({ y, m }: YmPos): number => y * 12 + (m - 1)
 export const ymAdd = (ym: YmPos, n: number): YmPos => nToYm(ymToN(ym) + n)
 
 export const getRangeKoyomi = (koyomis: Koyomi[]) => {

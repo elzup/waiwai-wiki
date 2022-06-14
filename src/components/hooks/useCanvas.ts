@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
-export const useCanvas = (draw: (e: HTMLCanvasElement) => void) => {
+export type DrawFunc = (e: HTMLCanvasElement) => void
+export const useCanvas = (draw: DrawFunc) => {
   const [png, setPng] = useState<string | null>(null)
 
   useEffect(() => {
