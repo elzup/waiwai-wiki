@@ -77,18 +77,18 @@ export const draw = (
   init()
 
   measures.forEach((m, i) => {
-    const annu = m.ym.m === 12
+    const annu = m.ym.m === 1
     const x = (i + 1) * CELL_W
 
     if (annu) {
       ctx.font = font(fs)
       ctx.fillStyle = '#000'
-      writeMid(m.ym.y.toString(), mlw + x, hh * 0.8)
+      writeMid(m.ym.y.toString(), mlw + x, hh - fs / 2)
     }
     // } else if (m.ym.m % 3 === 0) {
     ctx.font = font(fs * 0.8)
     ctx.fillStyle = '#888'
-    writeMid(m.ym.m.toString(), mlw + x - CELL_W / 2, hh)
+    writeMid(m.ym.m.toString(), mlw + x + CELL_W / 2, hh)
 
     gridLine(x, annu)
   })
