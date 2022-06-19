@@ -31,7 +31,7 @@ function KoyomiBoard({ koyomis }: Props) {
   const { blocks, measures, graph, poslibY, poslibX } = useMemo(() => {
     const blocks: BlockLine[] = koyomis.map((koyomi) => ({
       koyomi,
-      lines: schedulingBy(mapId(koyomi.times), ({ id, ...v }) => ({
+      lines: schedulingBy(mapId(koyomi.memories), ({ id, ...v }) => ({
         id,
         start: timeNum(v.time),
         end: endTimeNum(v),
@@ -89,23 +89,23 @@ function KoyomiBoard({ koyomis }: Props) {
               <Typography>{koyomi.title}</Typography>
 
               <div className="tl">
-                {lines.map((cells, ci) => (
+                {lines.map((memories, ci) => (
                   <div key={ci} className="line">
                     {measures
                       .map((pos) => ({
                         pos,
-                        cell: cells[pos.id],
+                        memory: memories[pos.id],
                         y: poslibY[`${bi}-${ci}`],
                         x: poslibX[pos.id],
                       }))
-                      .filter(({ cell }) => Boolean(cell))
-                      .map(({ pos, cell, y, x }) => (
+                      .filter(({ memory }) => Boolean(memory))
+                      .map(({ pos, memory, y, x }) => (
                         <div
                           key={pos.id}
                           className="cell"
                           style={{ left: `${x}px`, top: `${y}px` }}
                         >
-                          <KoyomiItem time={cell} />
+                          <KoyomiItem memory={memory} />
                         </div>
                       ))}
                   </div>

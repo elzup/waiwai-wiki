@@ -1,11 +1,11 @@
 import { formatYmd, rangeAdv } from '@elzup/kit'
-import { BlockLine, Koyomi, Time, TimeGrid, TimePos, YmPos } from '../types'
+import { BlockLine, Koyomi, Memory, TimeGrid, TimePos, YmPos } from '../types'
 
 export const timeNum = (s: string) => Number(s.replace(/-/g, ''))
 export const TIME_PROGRESS = '9999-99'
 export const TIME_NOW = formatYmd(new Date()).substring(0, 7)
 
-export const endTimeNum = (v: Time) =>
+export const endTimeNum = (v: Memory) =>
   timeNum(v.category === 'range' ? v.end ?? TIME_PROGRESS : v.time)
 
 export const nToYm = (n: number): YmPos => ({
@@ -16,7 +16,7 @@ export const ymToN = ({ y, m }: YmPos): number => y * 12 + (m - 1)
 export const ymAdd = (ym: YmPos, n: number): YmPos => nToYm(ymToN(ym) + n)
 
 export const getRangeKoyomi = (koyomis: Koyomi[]) => {
-  const times = koyomis.map((v) => v.times).flat()
+  const times = koyomis.map((v) => v.memories).flat()
 
   return times.reduce(
     ({ bgn, end }, c) => {

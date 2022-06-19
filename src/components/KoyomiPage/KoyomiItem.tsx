@@ -1,30 +1,30 @@
-import { Time, TimePoint, TimeRange } from '../../types'
+import { Memory, MemoryPoint, MemoryRange } from '../../types'
 
 type Props = {
-  time: Time
+  memory: Memory
 }
 
-export const KoyomiItemRange = ({ time }: { time: TimeRange }) => {
+export const KoyomiItemRange = ({ memory }: { memory: MemoryRange }) => {
   return (
     <div>
-      {time.label} {time.end}
+      {memory.label} {memory.end}
     </div>
   )
 }
 
-export const KoyomiItemPoint = ({ time }: { time: TimePoint }) => {
+export const KoyomiItemPoint = ({ memory }: { memory: MemoryPoint }) => {
   return (
     <div>
-      {time.label} {time.time}
+      {memory.label} {memory.time}
     </div>
   )
 }
 
-export const KoyomiItem = ({ time }: Props) => {
-  if (time.category === 'range') {
-    return <KoyomiItemRange time={time} />
-  } else if (time.category === 'point') {
-    return <KoyomiItemPoint time={time} />
+export const KoyomiItem = ({ memory }: Props) => {
+  if (memory.category === 'range') {
+    return <KoyomiItemRange memory={memory} />
+  } else if (memory.category === 'point') {
+    return <KoyomiItemPoint memory={memory} />
   }
   return null
 }

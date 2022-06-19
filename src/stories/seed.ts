@@ -60,7 +60,7 @@ export const koyomiWepon: Koyomi = {
   id: 'tl-anozon-0001',
   userId: 'anozon',
   title: 'Splatoon2 使用ブキ',
-  times: [
+  memories: [
     {
       category: 'range',
       itemId: 'N-ZAP85',
@@ -134,7 +134,7 @@ export const koyomiAchive: Koyomi = {
   id: 'tl-anozon-0002',
   userId: 'anozon',
   title: 'Splatoon2 実績',
-  times: [
+  memories: [
     { ...ep, label: '初プレイ', time: '2017-08' },
     { ...ep, label: '全部3.9ギア揃える', time: '2018-02' },
     { ...ep, label: 'ウデマエX到達', time: '2018-04' },

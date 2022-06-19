@@ -74,33 +74,33 @@ export type Cell = {
 export type TimePos = number
 export type TimeKey = string // 2000-01-00
 
-export type TimeBase = {
+export type MemoryBase = {
   itemId: Id | null
   label: string | null
   time: TimeKey
 }
 
-export type TimePoint = TimeBase & {
+export type MemoryPoint = MemoryBase & {
   category: 'point'
 }
 
-export type TimeRange = TimeBase & {
+export type MemoryRange = MemoryBase & {
   category: 'range'
   end?: TimeKey
 }
 
-export type Time = TimePoint | TimeRange
-export type TimeRaw = Omit<Time, 'id'>
+export type Memory = MemoryPoint | MemoryRange
+export type MemoryRaw = Omit<Memory, 'id'>
 
 export type Koyomi = {
   id: Id
   userId: Id
   title: string
-  times: Time[]
+  memories: Memory[]
   attrs: Id[]
 }
 
 export type YmPos = { y: number; m: number }
 export type TimeGrid = { n: number; ym: YmPos; id: TimePos }
-export type Line = Record<string, Time & { id: string }>
+export type Line = Record<string, Memory & { id: string }>
 export type BlockLine = { koyomi: Koyomi; lines: Line[] }
