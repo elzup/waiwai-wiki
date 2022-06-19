@@ -1,7 +1,7 @@
 import { BlockLine, TimeGrid } from '../../types'
+import { graphConfig } from '../../utils/koyomi'
 
-const CELL_H = 50
-const CELL_W = 50
+const { CELL_H, CELL_W } = graphConfig
 
 const font = (size: number) => `${size}px 'Noto Sans JP', sans-serif`
 
@@ -102,7 +102,7 @@ export const draw = (
 
     write(block.koyomi.title, mlw * 0.05, ch)
 
-    block.lines.forEach((line, y) => {
+    block.lines.forEach((line) => {
       gridLineRow(hh + (i - 1) * CELL_H)
       measures.forEach((m, mi) => {
         const cell = line[m.id]
