@@ -1,5 +1,5 @@
 import { formatYmd, rangeAdv } from '@elzup/kit'
-import { Koyomi, Time, TimeGrid, TimePos, YmPos } from '../types'
+import { BlockLine, Koyomi, Time, TimeGrid, TimePos, YmPos } from '../types'
 
 export const timeNum = (s: string) => Number(s.replace(/-/g, ''))
 export const TIME_PROGRESS = '9999-99'
@@ -45,4 +45,19 @@ export const makeMeasure = (bgn: number, end: number): TimeGrid[] => {
 
     return { n, ym, id: toTimePos(ym) }
   })
+}
+
+export const calcLayout = (blocks: BlockLine[]) => {
+  const layout: { [key: string]: number } = {}
+
+  let i = 0
+
+  blocks.forEach(({ lines }, bi) => {
+    lines.forEach((cells, ci) => {
+      layout[`${bi}-${ci}`] = i
+      i++
+    })
+  })
+
+  return layout
 }

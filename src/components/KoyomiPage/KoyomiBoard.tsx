@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { BlockLine, Koyomi } from '../../types'
 import { mapId } from '../../utils'
 import {
+  calcLayout,
   endTimeNum,
   getRangeKoyomi,
   makeMeasure,
@@ -17,12 +18,12 @@ type GraphProps = {
   cols: number
 }
 
+const CH = 42
+const CW = 42
+
 type Props = {
   koyomis: Koyomi[]
 }
-
-const CH = 42
-const CW = 42
 
 function KoyomiBoard({ koyomis }: Props) {
   const { blocks, measures, graph } = useMemo(() => {
@@ -45,44 +46,43 @@ function KoyomiBoard({ koyomis }: Props) {
     return { blocks, measures, graph }
   }, [koyomis])
   const png = useKoyomiDraw(blocks, measures)
+  const years = Object.entries(groupByFunc(measures, (v) => String(v.ym.y)))
+
+  const layoutStyles = calcLayout(blocks)
 
   return (
     <Style>
       <div className="draw">
         <div className="draw-part head">
-          {Object.entries(groupByFunc(measures, (v) => String(v.ym.y))).map(
-            ([y, v]) => (
-              <div key={y} className="y">
-                <div className="y-head">{y}</div>
-                <div className="m">
-                  {v.map((m) => (
-                    <div key={m.id} className="m-cell">
-                      <div className="m-head">{m.ym.m}</div>
-                    </div>
-                  ))}
-                </div>
+          {years.map(([y, v]) => (
+            <div key={y} className="y">
+              <div className="y-head">{y}</div>
+              <div className="m">
+                {v.map((m) => (
+                  <div key={m.id} className="m-cell">
+                    <div className="m-head">{m.ym.m}</div>
+                  </div>
+                ))}
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
         <div className="draw-part body">
-          {Object.entries(groupByFunc(measures, (v) => String(v.ym.y))).map(
-            ([y, v]) => (
-              <div key={y} className="y">
-                <div className="m">
-                  {v.map((m) => (
-                    <div key={m.id} className="m-cell">
-                      <div
-                        className="body"
-                        style={{ height: `${CH * graph.rows}px` }}
-                      ></div>
-                    </div>
-                  ))}
-                </div>
+          {years.map(([y, v]) => (
+            <div key={y} className="y">
+              <div className="m">
+                {v.map((m) => (
+                  <div key={m.id} className="m-cell">
+                    <div
+                      className="body"
+                      style={{ height: `${CH * graph.rows}px` }}
+                    ></div>
+                  </div>
+                ))}
               </div>
-            )
-          )}
-          {blocks.map(({ koyomi, lines }) => (
+            </div>
+          ))}
+          {blocks.map(({ koyomi, lines }, bi) => (
             <div key={koyomi.id}>
               <Typography>{koyomi.title}</Typography>
 
@@ -90,11 +90,16 @@ function KoyomiBoard({ koyomis }: Props) {
                 {lines.map((cells, ci) => (
                   <div key={ci} className="line">
                     {measures
-                      .map((pos) => ({ pos, cell: cells[pos.id] }))
-                      .map(({ pos, cell }) => (
+                      .map((pos, yi) => ({ pos, cell: cells[pos.id], yi }))
+                      .filter(({ cell }) => Boolean(cell))
+                      .map(({ pos, cell, yi }) => (
                         <div
                           key={pos.id}
                           className="cell"
+                          style={{
+                            left: `${CW * yi}px`,
+                            top: `${CH * (layoutStyles[`${bi}-${ci}`] ?? 0)}px`,
+                          }}
                           data-y={pos.ym.y}
                           data-m={pos.ym.m}
                         >
@@ -149,6 +154,13 @@ const Style = styled.div`
       }
     }
     &.body {
+      position: relative;
+      .y {
+        border-top-width: 0;
+      }
+      .cell {
+        position: absolute;
+      }
     }
   }
 
