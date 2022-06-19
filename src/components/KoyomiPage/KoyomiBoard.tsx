@@ -5,21 +5,22 @@ import styled from 'styled-components'
 import { BlockLine, Koyomi } from '../../types'
 import { mapId } from '../../utils'
 import {
-  calcLayout,
+  calcLayoutX,
+  calcLayoutY,
   endTimeNum,
   getRangeKoyomi,
   makeMeasure,
   timeNum,
+  graphConfig,
 } from '../../utils/koyomi'
 import { useKoyomiDraw } from './useKoyomiDraw'
+
+const { CELL_W: CW, CELL_H: CH } = graphConfig
 
 type GraphProps = {
   rows: number
   cols: number
 }
-
-const CH = 42
-const CW = 42
 
 type Props = {
   koyomis: Koyomi[]
@@ -48,7 +49,8 @@ function KoyomiBoard({ koyomis }: Props) {
   const png = useKoyomiDraw(blocks, measures)
   const years = Object.entries(groupByFunc(measures, (v) => String(v.ym.y)))
 
-  const layoutStyles = calcLayout(blocks)
+  const poslibY = calcLayoutY(blocks)
+  const poslibX = calcLayoutX(measures)
 
   return (
     <Style>
@@ -90,16 +92,18 @@ function KoyomiBoard({ koyomis }: Props) {
                 {lines.map((cells, ci) => (
                   <div key={ci} className="line">
                     {measures
-                      .map((pos, yi) => ({ pos, cell: cells[pos.id], yi }))
+                      .map((pos) => ({
+                        pos,
+                        cell: cells[pos.id],
+                        y: poslibY[`${bi}-${ci}`],
+                        x: poslibX[pos.id],
+                      }))
                       .filter(({ cell }) => Boolean(cell))
-                      .map(({ pos, cell, yi }) => (
+                      .map(({ pos, cell, y, x }) => (
                         <div
                           key={pos.id}
                           className="cell"
-                          style={{
-                            left: `${CW * yi}px`,
-                            top: `${CH * (layoutStyles[`${bi}-${ci}`] ?? 0)}px`,
-                          }}
+                          style={{ left: `${x}px`, top: `${y}px` }}
                           data-y={pos.ym.y}
                           data-m={pos.ym.m}
                         >
@@ -122,11 +126,13 @@ const Style = styled.div`
   .draw {
   }
 
+  box-sizing: border-box;
+
   .draw-part {
     display: grid;
     grid-auto-flow: column;
     .y {
-      border: solid 2px #aaa;
+      border: solid 1px #666;
       &:not(:first-child) {
         border-left-width: 0;
       }

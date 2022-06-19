@@ -47,17 +47,36 @@ export const makeMeasure = (bgn: number, end: number): TimeGrid[] => {
   })
 }
 
-export const calcLayout = (blocks: BlockLine[]) => {
+export const calcLayoutY = (blocks: BlockLine[]) => {
   const layout: { [key: string]: number } = {}
 
   let i = 0
 
   blocks.forEach(({ lines }, bi) => {
     lines.forEach((cells, ci) => {
-      layout[`${bi}-${ci}`] = i
+      layout[`${bi}-${ci}`] = i * graphConfig.CELL_H
       i++
     })
   })
 
   return layout
+}
+
+export const calcLayoutX = (measures: TimeGrid[]) => {
+  const layout: { [key: string]: number } = {}
+
+  if (measures[0] === undefined) return layout
+
+  const firstYear = measures[0].ym.y
+
+  measures.forEach((m, bi) => {
+    layout[m.id] = bi * graphConfig.CELL_W + m.ym.y - firstYear
+  })
+
+  return layout
+}
+
+export const graphConfig = {
+  CELL_H: 42,
+  CELL_W: 36,
 }
