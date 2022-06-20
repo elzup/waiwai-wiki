@@ -1,12 +1,30 @@
 import { formatYmd, rangeAdv } from '@elzup/kit'
-import { BlockLine, Koyomi, Memory, TimeGrid, TimePos, YmPos } from '../types'
+import {
+  BlockLine,
+  Koyomi,
+  Memory,
+  TimeGrid,
+  TimeKey,
+  TimePos,
+  YmPos,
+} from '../types'
 
-export const timeNum = (s: string) => Number(s.replace(/-/g, ''))
+type TimeNum = number
+
+export const toTimeNum = (s: TimeKey): TimeNum => Number(s.replace(/-/g, ''))
+export const ymPosToTimeKey = (ym: YmPos): TimeKey =>
+  `${ym.y}-${String(ym.m).padStart(2, '0')}`
 export const TIME_PROGRESS = '9999-99'
 export const TIME_NOW = formatYmd(new Date()).substring(0, 7)
 
-export const endTimeNum = (v: Memory) =>
-  timeNum(v.category === 'range' ? v.end ?? TIME_PROGRESS : v.time)
+export const endTimeNum = (v: Memory, min = 3) => {
+  const start = toTimeNum(v.time)
+
+  if (v.category === 'point') return start
+  if (v.end === undefined || v.end === null) return toTimeNum(TIME_PROGRESS)
+
+  return Math.max(start + min, toTimeNum(v.end))
+}
 
 export const nToYm = (n: number): YmPos => ({
   y: Math.floor((n - 1) / 12),
@@ -14,6 +32,8 @@ export const nToYm = (n: number): YmPos => ({
 })
 export const ymToN = ({ y, m }: YmPos): number => y * 12 + (m - 1)
 export const ymAdd = (ym: YmPos, n: number): YmPos => nToYm(ymToN(ym) + n)
+export const timeKeyAdd = (tk: TimeKey, n: number): TimeKey =>
+  ymPosToTimeKey(ymAdd(timeNumToTimePos(toTimeNum(tk)), n))
 
 export const getRangeKoyomi = (koyomis: Koyomi[]) => {
   const times = koyomis.map((v) => v.memories).flat()
@@ -22,23 +42,23 @@ export const getRangeKoyomi = (koyomis: Koyomi[]) => {
     ({ bgn, end }, c) => {
       if (c.category === 'point') return { bgn, end }
       return {
-        bgn: Math.min(bgn, timeNum(c.time)),
-        end: Math.max(timeNum(c.end ?? TIME_NOW), end),
+        bgn: Math.min(bgn, toTimeNum(c.time)),
+        end: Math.max(toTimeNum(c.end ?? TIME_NOW), end),
       }
     },
-    { bgn: timeNum(TIME_NOW), end: 0 }
+    { bgn: toTimeNum(TIME_NOW), end: 0 }
   )
 }
 
-export const parseTimePos = (time: TimePos): YmPos => ({
+export const timeNumToTimePos = (time: TimePos): YmPos => ({
   y: Math.floor(time / 100),
   m: time % 100,
 })
 export const toTimePos = ({ y, m }: YmPos): TimePos => y * 100 + m
 
 export const makeMeasure = (bgn: number, end: number): TimeGrid[] => {
-  const bYm = parseTimePos(bgn)
-  const eYm = parseTimePos(end)
+  const bYm = timeNumToTimePos(bgn)
+  const eYm = timeNumToTimePos(end)
 
   return rangeAdv(ymToN(bYm) - 3, ymToN(eYm) + 3).map((n) => {
     const ym = nToYm(n)

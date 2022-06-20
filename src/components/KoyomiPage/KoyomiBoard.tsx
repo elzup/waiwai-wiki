@@ -1,4 +1,4 @@
-import { groupByFunc, keyBy, schedulingBy } from '@elzup/kit'
+import { groupByFunc, keyBy, schedulingBy, schedulingEaseBy } from '@elzup/kit'
 import { Typography } from '@mui/material'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
@@ -10,7 +10,7 @@ import {
   endTimeNum,
   getRangeKoyomi,
   makeMeasure,
-  timeNum,
+  toTimeNum,
   graphConfig,
 } from '../../utils/koyomi'
 import { useKoyomiDraw } from './useKoyomiDraw'
@@ -23,19 +23,15 @@ type GraphProps = {
   cols: number
 }
 
-type Props = {
-  koyomis: Koyomi[]
-}
-
-function KoyomiBoard({ koyomis }: Props) {
-  const { blocks, measures, graph, poslibY, poslibX } = useMemo(() => {
+const useGraph = (koyomis: Koyomi[]) => {
+  return useMemo(() => {
     const blocks: BlockLine[] = koyomis.map((koyomi) => ({
       koyomi,
-      lines: schedulingBy(mapId(koyomi.memories), ({ id, ...v }) => ({
+      lines: schedulingEaseBy(mapId(koyomi.memories), ({ id, ...v }) => ({
         id,
-        start: timeNum(v.time),
-        end: endTimeNum(v),
-      })).map((v) => keyBy(v, (v) => String(timeNum(v.time)))),
+        start: toTimeNum(v.time),
+        end: endTimeNum(v, v.time),
+      })).map((v) => keyBy(v, (v) => String(toTimeNum(v.time)))),
     }))
     const range = getRangeKoyomi(koyomis)
 
@@ -49,6 +45,14 @@ function KoyomiBoard({ koyomis }: Props) {
 
     return { blocks, measures, graph, poslibY, poslibX }
   }, [koyomis])
+}
+
+type Props = {
+  koyomis: Koyomi[]
+}
+
+function KoyomiBoard({ koyomis }: Props) {
+  const { blocks, measures, graph, poslibY, poslibX } = useGraph(koyomis)
   const png = useKoyomiDraw(blocks, measures)
   const years = Object.entries(groupByFunc(measures, (v) => String(v.ym.y)))
 

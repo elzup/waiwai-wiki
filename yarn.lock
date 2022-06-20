@@ -1374,9 +1374,9 @@
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
 "@elzup/kit@^3.2.1":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@elzup/kit/-/kit-3.2.2.tgz#683c17fecd821d4b08202589240b2319fca8a6d5"
-  integrity sha512-8avVY1rc5FJVWG/pv91UfBs6Me6hB939TU2d6MStB38fW0vBCfteXUOS8DuO5beMwPCyiN60YMLh0ReeFPZJMg==
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@elzup/kit/-/kit-3.4.1.tgz#743c8211872f1f7741cb12e734716e79701ece5d"
+  integrity sha512-/E7H2v2dWVl4Jk2In37kxHZNfbg/ZSzhPNrsFTMaf3H0Xj9mSq4cWdHrHDFSJuy+3SO0e1R1o6Uavlg/EVdARA==
 
 "@emotion/babel-plugin@^11.7.1":
   version "11.9.2"
