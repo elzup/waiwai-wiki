@@ -11,11 +11,12 @@ import { BlockLine, Koyomi, LineMemory } from '../../types'
 import {
   calcLayoutX,
   calcLayoutY,
-  endTimeNum,
+  calcEndMi,
   getRangeKoyomi,
   graphConfig,
   makeMeasure,
   toYmNum,
+  calcStartMi,
 } from '../../utils/koyomi'
 import { KoyomiItem } from './KoyomiItem'
 import { useKoyomiDraw } from './useKoyomiDraw'
@@ -34,15 +35,15 @@ const useGraph = (koyomis: Koyomi[]) => {
 
     const blocks: BlockLine[] = koyomis.map((koyomi) => {
       const preMemories: LineMemory[] = koyomi.memories.map((v, i) => {
-        const startYmn = toYmNum(v.time)
-        const endYmn = endTimeNum(v, range.end)
+        const startMi = calcStartMi(v.time)
+        const endMi = calcEndMi(v, range.end)
 
         return {
           ...v,
           id: String(i),
-          startYmn,
-          endYmn,
-          range: endYmn - startYmn,
+          startMi,
+          endMi,
+          range: endMi - startMi + 1,
         }
       })
 
@@ -50,7 +51,11 @@ const useGraph = (koyomis: Koyomi[]) => {
         koyomi,
         lines: schedulingEaseBy(
           preMemories,
-          ({ id, startYmn: start, endYmn: end }) => ({ id, start, end })
+          ({ id, startMi: start, endMi: end }) => ({
+            id,
+            start,
+            end: Math.max(end, Number(start) + 3),
+          })
         ).map((v) => keyBy(v, (v) => String(toYmNum(v.time)))),
       }
     })

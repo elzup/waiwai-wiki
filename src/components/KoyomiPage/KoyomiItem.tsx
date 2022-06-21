@@ -1,18 +1,19 @@
-import { Memory, MemoryPoint, MemoryRange } from '../../types'
+import { LineMemory, LineMemoryPoint, LineMemoryRange } from '../../types'
+import { graphConfig } from '../../utils/koyomi'
 
 type Props = {
-  memory: Memory
+  memory: LineMemory
 }
 
-export const KoyomiItemRange = ({ memory }: { memory: MemoryRange }) => {
+export const KoyomiItemRange = ({ memory }: { memory: LineMemoryRange }) => {
   return (
-    <div>
+    <div style={{ width: graphConfig.CELL_W * memory.range }}>
       {memory.label} {memory.end}
     </div>
   )
 }
 
-export const KoyomiItemPoint = ({ memory }: { memory: MemoryPoint }) => {
+export const KoyomiItemPoint = ({ memory }: { memory: LineMemoryPoint }) => {
   return (
     <div>
       {memory.label} {memory.time}

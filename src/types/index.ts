@@ -102,11 +102,15 @@ export type Koyomi = {
 
 export type Ym = { y: number; m: number }
 export type TimeGrid = { n: number; ym: Ym; id: YmNum }
-export type LineMemory = Memory & {
+
+export type LineAttrs = {
   id: string
-  startYmn: YmNum
-  endYmn: YmNum
+  startMi: YmNum
+  endMi: YmNum
   range: number
 }
+export type LineMemoryRange = MemoryRange & LineAttrs
+export type LineMemoryPoint = MemoryPoint & LineAttrs
+export type LineMemory = LineMemoryRange | LineMemoryPoint
 export type Line = Record<string, LineMemory>
 export type BlockLine = { koyomi: Koyomi; lines: Line[] }

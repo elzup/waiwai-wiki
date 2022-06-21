@@ -16,15 +16,17 @@ export const miToYm = (n: Mi): Ym => ({
 export const ymToMi = ({ y, m }: Ym): Mi => y * 12 + (m - 1)
 export const ymAdd = (ym: Ym, n: number): Ym => miToYm(ymToMi(ym) + n)
 export const timeKeyAdd = (tk: YmKey, n: number): YmKey =>
-  toYmKey(ymAdd(timeNumToTimePos(toYmNum(tk)), n))
+  toYmKey(ymAdd(toYm(toYmNum(tk)), n))
 
-export const endTimeNum = (v: Memory, end: number) => {
-  const start = toYmNum(v.time)
+export const ymKeyToMi = (s: YmKey) => ymToMi(toYm(toYmNum(s)))
+export const calcStartMi = ymKeyToMi
+export const calcEndMi = (v: Memory, endYmNum: number) => {
+  const start = ymKeyToMi(v.time)
 
   if (v.category === 'point') return start
-  if (v.end === undefined || v.end === null) return end
+  if (v.end === undefined || v.end === null) return ymToMi(toYm(endYmNum))
 
-  return toYmNum(v.end)
+  return ymKeyToMi(v.end)
 }
 
 export const getRangeKoyomi = (koyomis: Koyomi[]) => {
@@ -42,15 +44,15 @@ export const getRangeKoyomi = (koyomis: Koyomi[]) => {
   )
 }
 
-export const timeNumToTimePos = (time: YmNum): Ym => ({
+export const toYm = (time: YmNum): Ym => ({
   y: Math.floor(time / 100),
   m: time % 100,
 })
 export const toTimePos = ({ y, m }: Ym): YmNum => y * 100 + m
 
 export const makeMeasure = (bgn: number, end: number): TimeGrid[] => {
-  const bYm = timeNumToTimePos(bgn)
-  const eYm = timeNumToTimePos(end)
+  const bYm = toYm(bgn)
+  const eYm = toYm(end)
 
   return rangeAdv(ymToMi(bYm) - 3, ymToMi(eYm) + 3).map((n) => {
     const ym = miToYm(n)
