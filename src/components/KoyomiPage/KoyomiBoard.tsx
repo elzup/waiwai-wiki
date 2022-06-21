@@ -36,7 +36,7 @@ const useGraph = (koyomis: Koyomi[]) => {
     const blocks: BlockLine[] = koyomis.map((koyomi) => {
       const preMemories: LineMemory[] = koyomi.memories.map((v, i) => {
         const startMi = calcStartMi(v.time)
-        const endMi = calcEndMi(v, range.end)
+        const endMi = calcEndMi(v, range.end + 1)
 
         return {
           ...v,

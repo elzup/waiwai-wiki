@@ -34,10 +34,12 @@ export const getRangeKoyomi = (koyomis: Koyomi[]) => {
 
   return times.reduce(
     ({ bgn, end }, c) => {
-      if (c.category === 'point') return { bgn, end }
+      const curBgn = c.time
+      const curEnd = c.category === 'point' ? c.time : c.end
+
       return {
-        bgn: Math.min(bgn, toYmNum(c.time)),
-        end: Math.max(toYmNum(c.end ?? TIME_NOW), end),
+        bgn: Math.min(bgn, toYmNum(curBgn)),
+        end: Math.max(toYmNum(curEnd ?? TIME_NOW), end),
       }
     },
     { bgn: toYmNum(TIME_NOW), end: 0 }
