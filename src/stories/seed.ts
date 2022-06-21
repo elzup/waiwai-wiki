@@ -136,7 +136,7 @@ export const koyomiAchive: Koyomi = {
   title: 'Splatoon2 実績',
   memories: [
     { ...ep, label: '初プレイ', time: '2017-08' },
-    { ...ep, label: '全部3.9ギア揃える', time: '2018-02' },
+    { ...ep, label: '3.9ギアコンプ', time: '2018-02' },
     { ...ep, label: 'ウデマエX到達', time: '2018-04' },
     { ...ep, label: 'ランク99', time: '2018-05' },
     { ...ep, label: 'オクトクリア', time: '2018-06' },

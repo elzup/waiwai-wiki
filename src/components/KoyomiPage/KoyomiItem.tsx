@@ -1,5 +1,8 @@
+import styled from 'styled-components'
 import { LineMemory, LineMemoryPoint, LineMemoryRange } from '../../types'
 import { graphConfig } from '../../utils/koyomi'
+
+const { CELL_H, CELL_W, MIN_MO_W } = graphConfig
 
 type Props = {
   memory: LineMemory
@@ -7,17 +10,22 @@ type Props = {
 
 export const KoyomiItemRange = ({ memory }: { memory: LineMemoryRange }) => {
   return (
-    <div style={{ width: graphConfig.CELL_W * memory.range }}>
-      {memory.label} {memory.end}
-    </div>
+    <Style>
+      <div className="back" style={{ width: CELL_W * memory.range }} />
+      <div className="text">{memory.label}</div>
+    </Style>
   )
 }
 
 export const KoyomiItemPoint = ({ memory }: { memory: LineMemoryPoint }) => {
   return (
-    <div>
-      {memory.label} {memory.time}
-    </div>
+    <Style>
+      <div
+        className="back"
+        style={{ width: graphConfig.CELL_W * memory.range }}
+      />
+      <div className="text">{memory.label}</div>
+    </Style>
   )
 }
 
@@ -29,3 +37,23 @@ export const KoyomiItem = ({ memory }: Props) => {
   }
   return null
 }
+
+const PAD_T = CELL_H * 0.1
+
+const Style = styled.div`
+  position: relative;
+  .back {
+    top: ${PAD_T}px;
+    position: absolute;
+    background: #ddd;
+    border-radius: 0 0 4px 4px;
+    height: ${CELL_H - PAD_T * 2}px;
+  }
+  .text {
+    top: ${PAD_T * 2}px;
+    font-size: ${CELL_H * 0.4}px;
+    position: absolute;
+    width: ${(MIN_MO_W + 1) * CELL_W}px;
+    padding-left: 4px;
+  }
+`
