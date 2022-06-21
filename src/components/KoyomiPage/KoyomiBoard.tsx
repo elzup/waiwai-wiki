@@ -1,20 +1,24 @@
-import { groupByFunc, keyBy, schedulingBy, schedulingEaseBy } from '@elzup/kit'
+import {
+  groupByFunc,
+  keyBy,
+  schedulingEase,
+  schedulingEaseBy,
+} from '@elzup/kit'
 import { Typography } from '@mui/material'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import styled from 'styled-components'
-import { BlockLine, Koyomi } from '../../types'
-import { mapId } from '../../utils'
+import { BlockLine, Koyomi, LineMemory } from '../../types'
 import {
   calcLayoutX,
   calcLayoutY,
   endTimeNum,
   getRangeKoyomi,
-  makeMeasure,
-  toTimeNum,
   graphConfig,
+  makeMeasure,
+  toYmNum,
 } from '../../utils/koyomi'
-import { useKoyomiDraw } from './useKoyomiDraw'
 import { KoyomiItem } from './KoyomiItem'
+import { useKoyomiDraw } from './useKoyomiDraw'
 
 const { CELL_W: CW, CELL_H: CH } = graphConfig
 
@@ -25,17 +29,32 @@ type GraphProps = {
 
 const useGraph = (koyomis: Koyomi[]) => {
   return useMemo(() => {
-    const blocks: BlockLine[] = koyomis.map((koyomi) => ({
-      koyomi,
-      lines: schedulingEaseBy(mapId(koyomi.memories), ({ id, ...v }) => ({
-        id,
-        start: toTimeNum(v.time),
-        end: endTimeNum(v, v.time),
-      })).map((v) => keyBy(v, (v) => String(toTimeNum(v.time)))),
-    }))
     const range = getRangeKoyomi(koyomis)
-
     const measures = makeMeasure(range.bgn, range.end)
+
+    const blocks: BlockLine[] = koyomis.map((koyomi) => {
+      const preMemories: LineMemory[] = koyomi.memories.map((v, i) => {
+        const startYmn = toYmNum(v.time)
+        const endYmn = endTimeNum(v, range.end)
+
+        return {
+          ...v,
+          id: String(i),
+          startYmn,
+          endYmn,
+          range: endYmn - startYmn,
+        }
+      })
+
+      return {
+        koyomi,
+        lines: schedulingEaseBy(
+          preMemories,
+          ({ id, startYmn: start, endYmn: end }) => ({ id, start, end })
+        ).map((v) => keyBy(v, (v) => String(toYmNum(v.time)))),
+      }
+    })
+
     const graph: GraphProps = {
       cols: measures.length,
       rows: blocks.map((v) => v.lines.length).reduce((a, b) => a + b),
