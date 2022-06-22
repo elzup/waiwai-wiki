@@ -142,7 +142,8 @@ export const koyomiAchive: Koyomi = {
     { ...ep, label: 'オクトクリア', time: '2018-06' },
     { ...ep, label: 'サモランカンスト999', time: '2018-07' },
     { ...ep, label: 'XP2500到達', time: '2019-06' },
-    { ...ep, label: '王冠', time: '2020-04' },
+    { ...ep, label: 'アサリ王冠', time: '2020-04' },
+    { ...ep, category: 'range', label: '休', time: '2020-06', end: '2021-10' },
   ],
   attrs: [],
 }
