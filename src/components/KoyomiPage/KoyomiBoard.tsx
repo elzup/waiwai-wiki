@@ -1,6 +1,13 @@
 import { groupByFunc, keyBy, schedulingEaseBy } from '@elzup/kit'
-import { Typography } from '@mui/material'
-import { useMemo } from 'react'
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Typography,
+} from '@mui/material'
+import { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { BlockLine, Koyomi, LineMemory } from '../../types'
 import {
@@ -72,11 +79,25 @@ type Props = {
 
 function KoyomiBoard({ koyomis }: Props) {
   const { blocks, measures, graph, poslibY, poslibX } = useGraph(koyomis)
-  const png = useKoyomiDraw(blocks, measures)
+  const [size, setSize] = useState<'s' | 'm' | 'l'>('s')
   const years = Object.entries(groupByFunc(measures, (v) => String(v.ym.y)))
 
   return (
-    <Style>
+    <Style data-size={size}>
+      <FormControl>
+        <FormLabel id="demo-row-radio-buttons-group-label">size</FormLabel>
+        <RadioGroup
+          row
+          defaultValue={size}
+          aria-labelledby="demo-row-radio-buttons-group-label"
+          name="row-radio-buttons-group"
+          onChange={(v) => setSize(v.target.value as 's' | 'm' | 'l')}
+        >
+          <FormControlLabel value="s" control={<Radio />} label="S" />
+          <FormControlLabel value="m" control={<Radio />} label="M" />
+          <FormControlLabel value="l" control={<Radio />} label="L" />
+        </RadioGroup>
+      </FormControl>
       <div className="draw">
         <div className="draw-part head">
           {years.map(([y, v]) => (
@@ -138,13 +159,23 @@ function KoyomiBoard({ koyomis }: Props) {
           ))}
         </div>
       </div>
-      <div>{png !== null && <img src={png} />}</div>
     </Style>
   )
 }
 
 const Style = styled.div`
+  &[data-size='s'] {
+    .draw {
+      transform: scale(0.5);
+    }
+  }
+  &[data-size='m'] {
+    .draw {
+      transform: scale(0.8);
+    }
+  }
   .draw {
+    transform-origin: left top;
   }
 
   box-sizing: border-box;
