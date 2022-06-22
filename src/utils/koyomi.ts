@@ -94,5 +94,5 @@ export const graphConfig = {
   CELL_H: 42,
   CELL_W: 36,
   MIN_MO_W: 3,
-  FONT_H_RATE: 0.5,
+  FONT_H_RATE: 0.35,
 }
