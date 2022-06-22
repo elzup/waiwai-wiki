@@ -3,6 +3,11 @@ import { BlockLine, Koyomi, Memory, TimeGrid, Ym, YmKey, YmNum } from '../types'
 
 type Mi = number
 
+export const toYm = (time: YmNum): Ym => ({
+  y: Math.floor(time / 100),
+  m: time % 100,
+})
+export const toTimePos = ({ y, m }: Ym): YmNum => y * 100 + m
 export const toYmNum = (s: YmKey): YmNum => Number(s.replace(/-/g, ''))
 export const toYmKey = (ym: Ym): YmKey =>
   `${ym.y}-${String(ym.m).padStart(2, '0')}`
@@ -18,7 +23,10 @@ export const ymAdd = (ym: Ym, n: number): Ym => miToYm(ymToMi(ym) + n)
 export const timeKeyAdd = (tk: YmKey, n: number): YmKey =>
   toYmKey(ymAdd(toYm(toYmNum(tk)), n))
 
+const TIME_END = timeKeyAdd(TIME_NOW, 3)
+
 export const ymKeyToMi = (s: YmKey) => ymToMi(toYm(toYmNum(s)))
+
 export const calcStartMi = ymKeyToMi
 export const calcEndMi = (v: Memory, endYmNum: number) => {
   const start = ymKeyToMi(v.time)
@@ -39,18 +47,12 @@ export const getRangeKoyomi = (koyomis: Koyomi[]) => {
 
       return {
         bgn: Math.min(bgn, toYmNum(curBgn)),
-        end: Math.max(toYmNum(curEnd ?? TIME_NOW), end),
+        end: Math.max(toYmNum(curEnd ?? TIME_END), end),
       }
     },
     { bgn: toYmNum(TIME_NOW), end: 0 }
   )
 }
-
-export const toYm = (time: YmNum): Ym => ({
-  y: Math.floor(time / 100),
-  m: time % 100,
-})
-export const toTimePos = ({ y, m }: Ym): YmNum => y * 100 + m
 
 export const makeMeasure = (bgn: number, end: number): TimeGrid[] => {
   const bYm = toYm(bgn)
