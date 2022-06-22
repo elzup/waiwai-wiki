@@ -85,7 +85,7 @@ function KoyomiBoard({ koyomis }: Props) {
       <div className="draw">
         <div className="draw-part head">
           {years.map(([y, v]) => (
-            <div key={y} className="y">
+            <div key={y} className="y" style={{ width: `${CW * v.length}px` }}>
               <div className="y-head">{y}</div>
               <div className="m">
                 {v.map((m) => (
@@ -99,7 +99,7 @@ function KoyomiBoard({ koyomis }: Props) {
         </div>
         <div className="draw-part body">
           {years.map(([y, v]) => (
-            <div key={y} className="y">
+            <div key={y} className="y" style={{ width: `${CW * v.length}px` }}>
               <div className="m">
                 {v.map((m) => (
                   <div key={m.id} className="m-cell">
@@ -208,7 +208,6 @@ const Style = styled.div`
 
     .cell {
       background: white;
-      border: solid 1px #ccc;
     }
   }
 `

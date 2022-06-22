@@ -46,7 +46,7 @@ const Style = styled.div`
     top: ${PAD_T}px;
     position: absolute;
     background: #ddd;
-    border-radius: 0 0 4px 4px;
+    border-radius: 4px 0 0 4px;
     height: ${CELL_H - PAD_T * 2}px;
   }
   .text {

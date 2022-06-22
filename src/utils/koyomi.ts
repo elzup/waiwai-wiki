@@ -1,5 +1,5 @@
 import { formatYmd, rangeAdv } from '@elzup/kit'
-import { BlockLine, Koyomi, Memory, TimeGrid, YmKey, YmNum, Ym } from '../types'
+import { BlockLine, Koyomi, Memory, TimeGrid, Ym, YmKey, YmNum } from '../types'
 
 type Mi = number
 
@@ -83,10 +83,8 @@ export const calcLayoutX = (measures: TimeGrid[]) => {
 
   if (measures[0] === undefined) return layout
 
-  const firstYear = measures[0].ym.y
-
   measures.forEach((m, bi) => {
-    layout[m.id] = bi * graphConfig.CELL_W + m.ym.y - firstYear
+    layout[m.id] = bi * graphConfig.CELL_W
   })
 
   return layout
