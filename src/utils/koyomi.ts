@@ -17,7 +17,6 @@ export const ymToMi = ({ y, m }: Ym): Mi => y * 12 + (m - 1)
 export const ymAdd = (ym: Ym, n: number): Ym => miToYm(ymToMi(ym) + n)
 export const timeKeyAdd = (tk: YmKey, n: number): YmKey =>
   toYmKey(ymAdd(toYm(toYmNum(tk)), n))
-export const TIME_MAX = timeKeyAdd(TIME_NOW, 3)
 
 export const ymKeyToMi = (s: YmKey) => ymToMi(toYm(toYmNum(s)))
 export const calcStartMi = ymKeyToMi
@@ -40,7 +39,7 @@ export const getRangeKoyomi = (koyomis: Koyomi[]) => {
 
       return {
         bgn: Math.min(bgn, toYmNum(curBgn)),
-        end: Math.max(toYmNum(curEnd ?? TIME_MAX), end),
+        end: Math.max(toYmNum(curEnd ?? TIME_NOW), end),
       }
     },
     { bgn: toYmNum(TIME_NOW), end: 0 }
