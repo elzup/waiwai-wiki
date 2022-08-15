@@ -126,6 +126,12 @@ export const koyomiWepon: Koyomi = {
       label: 'ラピットブラスター',
       time: '2022-06',
     },
+    {
+      category: 'range',
+      itemId: 'エクスプロッシャー',
+      label: 'エクスプロッシャー',
+      time: '2022-08',
+    },
   ],
   attrs: [],
 }
