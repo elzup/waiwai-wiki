@@ -71,8 +71,8 @@ export type Cell = {
   str: string
 }
 
-export type YmNum = number
-export type YmKey = string // 2000-01-00
+export type YmNum = number // 202211
+export type YmKey = string // 2022-11-00
 
 export type MemoryBase = {
   itemId: Id | null

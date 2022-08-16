@@ -21,7 +21,6 @@ import {
   toYmNum,
 } from '../../utils/koyomi'
 import { KoyomiItem } from './KoyomiItem'
-import { useKoyomiDraw } from './useKoyomiDraw'
 
 const { CELL_W: CW, CELL_H: CH } = graphConfig
 
