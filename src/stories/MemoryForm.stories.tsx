@@ -1,13 +1,13 @@
 import { Meta, Story } from '@storybook/react'
 import { ComponentProps } from 'react'
 import { action } from '@storybook/addon-actions'
-import LineForm from '../components/KoyomiPage/KoyomiEditor/LineForm'
-import { LineMemory } from '../types'
+import MemoryForm from '../components/KoyomiPage/KoyomiEditor/MemoryForm'
+import { Memory } from '../types'
 
-type Props = ComponentProps<typeof LineForm>
+type Props = ComponentProps<typeof MemoryForm>
 export default {
-  title: 'LineForm',
-  component: LineForm,
+  title: 'MemoryForm',
+  component: MemoryForm,
   args: {},
   parameters: {},
   // decorators: decorators(),
@@ -16,18 +16,14 @@ export default {
   },
 } as Meta<Props>
 
-const line: LineMemory = {
+const line: Memory = {
   itemId: null,
   label: null,
   time: '2022-07-00',
   category: 'range',
   end: '2022-08-00',
-  id: '',
-  startMi: 202207,
-  endMi: 202208,
-  range: 1,
 }
 
 export const Base: Story<Props> = (_args) => (
-  <LineForm entity={line} onSubmit={action('submit')} />
+  <MemoryForm entity={line} onSubmit={action('submit')} />
 )

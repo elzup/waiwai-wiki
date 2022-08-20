@@ -84,6 +84,7 @@ export type MemoryPoint = MemoryBase & {
   category: 'point'
 }
 
+export const categories = ['range', 'point'] as const
 export type MemoryRange = MemoryBase & {
   category: 'range'
   end?: YmKey

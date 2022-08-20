@@ -5,10 +5,10 @@ on:
   pull_request:
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -17,7 +17,6 @@ jobs:
           cache: 'yarn'
       - run: yarn
       - run: yarn export
-
 #      - name: Deploy to Netlify
 #        uses: nwtgck/actions-netlify@v1.2
 #        with:

@@ -2,26 +2,25 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import { LineMemory } from '../../../types'
+import { MemoryPoint } from '../../../types'
 
-type Entity = LineMemory
+type Entity = MemoryPoint
 
 type Props = {
   entity: Entity
-  onSubmit: (koyomi: Entity) => void
+  onSubmit: (entity: Entity) => void
 }
 
 const validationSchema = yup.object({
-  email: yup.string().email().required(),
-  password: yup.string().min(8).required(),
+  category: yup.string().required(),
+  itemId: yup.string().nullable(),
+  label: yup.string().nullable(),
+  time: yup.string().required(),
 })
 
-const LineForm = ({ entity, onSubmit }: Props) => {
+const MemoryForm = ({ entity, onSubmit }: Props) => {
   const { values, handleChange, handleSubmit, touched, errors } = useFormik({
-    initialValues: {
-      email: 'foobar@example.com',
-      password: 'passwordaa',
-    },
+    initialValues: entity,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       onSubmit(entity)
@@ -42,8 +41,7 @@ const LineForm = ({ entity, onSubmit }: Props) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <TextField fullWidth {...formikProps('email')} />
-        <TextField fullWidth {...formikProps('password')} />
+        <TextField fullWidth {...formikProps('label')} />
         <Button color="primary" variant="contained" fullWidth type="submit">
           Submit
         </Button>
@@ -52,4 +50,4 @@ const LineForm = ({ entity, onSubmit }: Props) => {
   )
 }
 
-export default LineForm
+export default MemoryForm

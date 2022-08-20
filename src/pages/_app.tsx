@@ -42,6 +42,7 @@ const App = ({
     </Head>
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {/* @ts-ignore https://github.com/styled-components/styled-components/issues/3738 */}
       <GlobalStyle />
       <Component {...pageProps} />
     </ThemeProvider>
