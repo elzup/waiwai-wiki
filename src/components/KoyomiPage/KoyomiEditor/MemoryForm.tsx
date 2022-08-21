@@ -1,13 +1,12 @@
-import { pad02, range, rangeAdv } from '@elzup/kit'
+import { rangeAdv } from '@elzup/kit'
 import { Slider, Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { useFormik } from 'formik'
 import { useState } from 'react'
 import * as yup from 'yup'
-import MonthPicker from '@mui/x-date-pickers/MonthPicker'
 import { MemoryPoint } from '../../../types'
-import { miToYm, ymKeyToMi } from '../../../utils/koyomi'
+import { miToYm, miToYmKey, ymKeyToMi } from '../../../utils/koyomi'
 
 type Entity = MemoryPoint
 
@@ -23,19 +22,13 @@ const validationSchema = yup.object({
   time: yup.string().required(),
 })
 
-const valueLabelFormat = (v: number) => {
-  const { y, m } = miToYm(v)
-
-  return `${y}-${pad02(m)}`
-}
-
 const MemoryForm = ({ entity, onSubmit }: Props) => {
   const [mi, setMi] = useState<number>(ymKeyToMi(entity.time))
 
   const [miPast, setMiPast] = useState<number>(mi - 12)
   const [miFutu, setMiFutu] = useState<number>(mi + 12)
 
-  console.log('hello')
+  const ymKey = miToYmKey(mi)
 
   const { values, handleChange, handleSubmit, touched, errors } = useFormik({
     initialValues: entity,
@@ -58,6 +51,15 @@ const MemoryForm = ({ entity, onSubmit }: Props) => {
   const marks = rangeAdv(miPast, miFutu + 1)
     .map((v) => ({ ...miToYm(v), v }))
     .map(({ y, m, v }) => ({ value: v, label: m === 6 ? 6 : m === 1 ? y : '' }))
+    .filter((v) => v.label !== '')
+  const expandCheck = (mi: number) => {
+    if (mi < miPast + 6) {
+      setMiPast(mi - 12)
+    }
+    if (miFutu - 6 < mi) {
+      setMiFutu(mi + 12)
+    }
+  }
 
   return (
     <div>
@@ -69,17 +71,34 @@ const MemoryForm = ({ entity, onSubmit }: Props) => {
           value={mi}
           min={miPast}
           max={miFutu}
-          getAriaValueText={valueLabelFormat}
-          valueLabelDisplay="on"
+          getAriaValueText={miToYmKey}
+          valueLabelDisplay="auto"
           marks={marks}
-          onChange={(e, v) => {
-            if (typeof v === 'number') {
-              setMi(v)
-            }
+          onChangeCommitted={(e, v) => {
+            if (typeof v !== 'number') return
+            expandCheck(v)
           }}
-          valueLabelFormat={valueLabelFormat}
+          onChange={(e, v) => {
+            if (typeof v !== 'number') return
+
+            setMi(v)
+          }}
+          valueLabelFormat={miToYmKey}
         />
-        <Typography>月: {valueLabelFormat(mi)}</Typography>
+        <Typography>月: {miToYmKey(mi)}</Typography>
+        <TextField
+          fullWidth
+          type="number"
+          value={ymKey}
+          InputProps={{
+            type: 'month',
+          }}
+          onChange={(e) => {
+            const v = Number(e.target.value)
+
+            expandCheck(v)
+          }}
+        />
         <Button color="primary" variant="contained" fullWidth type="submit">
           Submit
         </Button>

@@ -9,10 +9,17 @@ export const toYm = (time: YmNum): Ym => ({
 })
 export const toTimePos = ({ y, m }: Ym): YmNum => y * 100 + m
 export const toYmNum = (s: YmKey): YmNum => Number(s.replace(/-/g, ''))
+export const miToYmKey = (mi: Mi): YmKey => toYmKey(miToYm(mi))
 export const toYmKey = (ym: Ym): YmKey =>
   `${ym.y}-${String(ym.m).padStart(2, '0')}`
 export const TIME_PROGRESS = '9999-99'
 export const TIME_NOW = formatYmd(new Date()).substring(0, 7)
+
+export const miToDate = (n: Mi): Date => {
+  const { y, m } = miToYm(n)
+
+  return new Date(`${y}-${m}-01`)
+}
 
 export const miToYm = (n: Mi): Ym => ({
   y: Math.floor((n - 1) / 12),
