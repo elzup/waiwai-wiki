@@ -1,5 +1,6 @@
-import { ThemeProvider, CssBaseline } from '@mui/material'
-import { theme, GlobalStyle } from '../src/utils/theme'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import { withConsole } from '@storybook/addon-console'
+import { GlobalStyle, theme } from '../src/utils/theme'
 
 export const parameters = {
   actions: { argTypesRegex: '^on.*' },
@@ -23,4 +24,5 @@ export const decorators = [
       <Story />
     </ThemeProvider>
   ),
+  (storyFn, context) => withConsole()(storyFn)(context),
 ]

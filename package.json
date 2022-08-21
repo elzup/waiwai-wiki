@@ -33,9 +33,11 @@
   "devDependencies": {
     "@babel/core": "7.18.10",
     "@emotion/server": "^11.10.0",
+    "@storybook/addon-a11y": "^6.5.10",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-console": "^1.2.3",
     "@storybook/addon-links": "6.5.10",
+    "@storybook/addon-storysource": "^6.5.10",
     "@storybook/addons": "6.5.10",
     "@storybook/builder-webpack5": "6.5.10",
     "@storybook/manager-webpack5": "6.5.10",

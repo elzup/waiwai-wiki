@@ -4,6 +4,8 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-actions',
     '@storybook/addon-console',
+    '@storybook/addon-a11y',
+    '@storybook/addon-storysource',
   ],
   core: {
     builder: 'webpack5',
