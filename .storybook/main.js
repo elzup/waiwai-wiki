@@ -1,7 +1,11 @@
 module.exports = {
   stories: ['../src/**/*.stories.@(tsx|mdx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-actions'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-actions',
+    '@storybook/addon-console',
+  ],
   core: {
-    builder: 'webpack5'
-  }
-};
+    builder: 'webpack5',
+  },
+}
