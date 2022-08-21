@@ -1,6 +1,8 @@
 import { rangeAdv } from '@elzup/kit'
-import { Slider, Typography } from '@mui/material'
+import { Box, IconButton, Slider, Typography } from '@mui/material'
+import ZoomIn from '@mui/icons-material/ZoomIn'
 import Button from '@mui/material/Button'
+
 import TextField from '@mui/material/TextField'
 import { useFormik } from 'formik'
 import { useState } from 'react'
@@ -38,6 +40,10 @@ const MemoryForm = ({ entity, onSubmit }: Props) => {
       // alert(JSON.stringify(values, null, 2))
     },
   })
+  const zoomReset = () => {
+    setMiPast(mi - 12)
+    setMiFutu(mi + 12)
+  }
 
   const formikProps = (key: keyof typeof values) => ({
     id: key,
@@ -65,26 +71,31 @@ const MemoryForm = ({ entity, onSubmit }: Props) => {
     <div>
       <form onSubmit={handleSubmit}>
         <TextField fullWidth {...formikProps('label')} />
-        <Slider
-          {...formikProps}
-          track={false}
-          value={mi}
-          min={miPast}
-          max={miFutu}
-          getAriaValueText={miToYmKey}
-          valueLabelDisplay="auto"
-          marks={marks}
-          onChangeCommitted={(e, v) => {
-            if (typeof v !== 'number') return
-            expandCheck(v)
-          }}
-          onChange={(e, v) => {
-            if (typeof v !== 'number') return
+        <Box display="flex" alignItems="center">
+          <Slider
+            {...formikProps}
+            track={false}
+            value={mi}
+            min={miPast}
+            max={miFutu}
+            getAriaValueText={miToYmKey}
+            valueLabelDisplay="auto"
+            marks={marks}
+            onChangeCommitted={(e, v) => {
+              if (typeof v !== 'number') return
+              expandCheck(v)
+            }}
+            onChange={(e, v) => {
+              if (typeof v !== 'number') return
 
-            setMi(v)
-          }}
-          valueLabelFormat={miToYmKey}
-        />
+              setMi(v)
+            }}
+            valueLabelFormat={miToYmKey}
+          />
+          <IconButton onClick={zoomReset}>
+            <ZoomIn />
+          </IconButton>
+        </Box>
         <Typography>月: {miToYmKey(mi)}</Typography>
         <TextField
           fullWidth
