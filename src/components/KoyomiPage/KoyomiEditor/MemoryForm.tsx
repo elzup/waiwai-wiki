@@ -44,6 +44,7 @@ const MemoryForm = ({ entity, onSubmit }: Props) => {
     setMiPast(mi - 12)
     setMiFutu(mi + 12)
   }
+  const zoomEnabled = miPast + 12 !== mi || mi !== miFutu - 12
 
   const formikProps = (key: keyof typeof values) => ({
     id: key,
@@ -75,6 +76,7 @@ const MemoryForm = ({ entity, onSubmit }: Props) => {
           <Slider
             {...formikProps}
             track={false}
+            style={{ margin: '20px' }}
             value={mi}
             min={miPast}
             max={miFutu}
@@ -92,7 +94,7 @@ const MemoryForm = ({ entity, onSubmit }: Props) => {
             }}
             valueLabelFormat={miToYmKey}
           />
-          <IconButton onClick={zoomReset}>
+          <IconButton onClick={zoomReset} disabled={!zoomEnabled}>
             <ZoomIn />
           </IconButton>
         </Box>
