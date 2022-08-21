@@ -94,9 +94,10 @@ const MemoryForm = ({ entity, onSubmit }: Props) => {
             type: 'month',
           }}
           onChange={(e) => {
-            const v = Number(e.target.value)
+            const mi = ymKeyToMi(e.target.value)
 
-            expandCheck(v)
+            expandCheck(mi)
+            setMi(mi)
           }}
         />
         <Button color="primary" variant="contained" fullWidth type="submit">

@@ -1,8 +1,8 @@
+import { action } from '@storybook/addon-actions'
 import { Meta, Story } from '@storybook/react'
 import { ComponentProps } from 'react'
-import { action } from '@storybook/addon-actions'
 import MemoryForm from '../components/KoyomiPage/KoyomiEditor/MemoryForm'
-import { Memory, MemoryPoint } from '../types'
+import { MemoryPoint } from '../types'
 
 type Props = ComponentProps<typeof MemoryForm>
 export default {
@@ -24,5 +24,10 @@ const line: MemoryPoint = {
 }
 
 export const Base: Story<Props> = (_args) => (
-  <MemoryForm entity={line} onSubmit={action('submit')} />
+  <MemoryForm
+    entity={line}
+    onSubmit={() => {
+      action('submit')
+    }}
+  />
 )
